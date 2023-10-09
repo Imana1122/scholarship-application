@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class SchoolPasswordResetToken extends Model
+class UserPasswordResetToken extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'school_phone',
+        'phone_number',
         'verification_token',
         'verification_status'
     ];
@@ -18,9 +18,8 @@ class SchoolPasswordResetToken extends Model
         'verification_token',
     ];
 
-    public function school()
+    public function user()
     {
-        return $this->belongsTo(School::class, 'school_phone', 'school_phone');
+        return $this->belongsTo(User::class, 'phone_number', 'phone_number');
     }
-
 }

@@ -38,6 +38,11 @@ class School extends Model implements Authenticatable
         return $this->hasMany(Student::class, 'school_id'); // 'school_id' is the foreign key in the students table
     }
 
+    public function resetToken()
+    {
+        return $this->hasOne(SchoolPasswordResetToken::class, 'school_phone', 'school_phone');
+    }
+
     // Required methods for Authenticatable interface
 
     public function getAuthIdentifierName()
