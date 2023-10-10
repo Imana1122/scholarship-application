@@ -353,8 +353,61 @@ class SchoolController extends Controller
 
     public function getSchoolsWithStudents(){
         $user = Auth::guard('user')->user();
-        $schoolsWithStudents = School::with('students')->get();
-        return Inertia::render('Admin/Schools',['schoolsWithStudents' => $schoolsWithStudents,'currentUser'=>$user]);
+
+        // Retrieve schools with students
+        $schoolsWithStudents = School::all();
+
+        // Initialize an array to store categorized students for each school
+        $schoolsWithCategorizedStudents = [];
+
+        // Loop through each school
+        foreach ($schoolsWithStudents as $school) {
+
+            $students = $school->students()->orderBy('symbol_number')->get();
+
+            // Retrieve 'Passed' students in ascending order of 'rank'
+            $passedStudents = $school->students()->where('result', 'Passed')
+                ->orderBy('rank')
+                ->get();
+
+            // Retrieve 'Failed' students in ascending order of 'rank'
+            $failedStudents = $school->students()->where('result', 'Failed')
+                ->orderBy('rank')
+                ->get();
+
+            // Retrieve 'On Hold' students in ascending order of 'rank'
+            $onHoldStudents = $school->students()->where('result', 'On Hold')
+                ->orderBy('rank')
+                ->get();
+
+            // Create an array for this school's data
+            $schoolData = [
+                'id' => $school->id,
+                'school_name' => $school->school_name,
+                'school_type' => $school->school_type,
+                'school_email' => $school->school_email,
+                'school_phone' => $school->school_phone,
+                'school_address' => $school->school_address,
+                'school_category' => $school->school_category,
+                'established_date' => $school->established_date,
+                'principal_name' => $school->principal_name,
+                'principal_email' => $school->principal_email,
+                'principal_phone' => $school->principal_phone,
+                'school_license' => $school->school_license,
+                'students' => [
+                    'All' => $students,
+                    'Passed' => $passedStudents,
+                    'Failed' => $failedStudents,
+                    'On Hold' => $onHoldStudents,
+                ],
+            ];
+
+            // Add this school's data to the result array
+            $schoolsWithCategorizedStudents[] = $schoolData;
+        }
+
+        return Inertia::render('Admin/Schools', ['schoolsWithStudents' => $schoolsWithCategorizedStudents, 'currentUser' => $user]);
     }
+
 
 }

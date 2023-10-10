@@ -19,11 +19,11 @@ export const ScholarshipBanner = ({errors}) => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    router.visit(`/scholarship-result/${data.id}`);
+    router.visit(`/scholarship/result/${data.id}`);
   };
 
   return (
-    <div className="bg-blue-400 p-5 flex flex-col items-center justify-between gap-y-10">
+    <div className="bg-blue-400 px-20 py-5 flex flex-col items-center justify-between gap-y-10">
       <div>
         <h1 className="text-white font-bold text-xl md:text-4xl ">Scholarship Program</h1>
       </div>
@@ -64,7 +64,7 @@ export const ScholarshipBanner = ({errors}) => {
           <p className="mt-5 text-center text-sm text-gray-500">
             Not applied for a scholarship?<br />
             <Link
-              href="/scholarship-apply"
+              href="/scholarship/apply"
               className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
             >
               Apply

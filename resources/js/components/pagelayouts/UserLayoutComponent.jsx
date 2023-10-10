@@ -9,7 +9,6 @@ const UserLayoutComponent = ({ title, children }) => {
     { name: "Notices", to: "/notices" },
     { name: "Downloads", to: "/downloads" },
     { name: "Contact", to: "/contact" },
-    { name: "Members", to: "/members" },
   ];
 
 

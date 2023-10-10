@@ -40,7 +40,7 @@ export default function BackgroundImages(props){
     // Function to open the modal with the image URL
   const openModal = (url) => {
         setIsImageModalOpen(true);
-      setImageUrl(url);
+        setImageUrl(url);
   };
 
   const handleDelete=(imageId) =>{
@@ -92,7 +92,7 @@ export default function BackgroundImages(props){
         </TButton>
       }
     >
-      <div className="mt-3 text-sm" style={{ overflowX: 'auto' }}>
+      <div className="mt-3 text-sm">
         <table className="w-full text-gray-700 border border-collapse border-gray-200 rounded-sm">
           <thead className="bg-gray-400">
             <tr>

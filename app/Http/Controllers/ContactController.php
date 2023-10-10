@@ -4,23 +4,28 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ContactRequest;
 use App\Models\Contact;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class ContactController extends Controller
 {
     public function showContact(){
-        $contact = Contact::find(1);
+        $contact = Contact::first();
 
-        return Inertia::render('User/Contact',['activeRoute' => '/contact','contact'=>$contact]);
+        return Inertia::render('User/Contact',['contact'=>$contact]);
     }
-    public function update(ContactRequest $request)
+
+    public function showUpdateForm(){
+        $user = auth('user')->user();
+        $contact = Contact::first();
+
+        return Inertia::render('Admin/UpdateContact',['currentUser'=>$user, 'contact'=>$contact]);
+    }
+
+    public function updateContact(ContactRequest $request)
     {
-        $contacts = Contact::findOrFail(1);
+        $contacts = Contact::first();
 
         $data = $request->validated();
-
-
 
         // Update the Trainer model based on the fields present in the validated data
         $contacts->update([
@@ -38,7 +43,6 @@ class ContactController extends Controller
         ]);
 
         return response()->json([
-            'contacts' => $contacts,
             'message' => 'Contacts updated successfully.',
         ]);
     }

@@ -11,7 +11,7 @@ const Footer = () => {
           <div className="container mx-auto px-4">
             <div className="flex justify-center space-x-20 items-center">
               {/* Logo column */}
-              <div className="flex items-center">
+              <div className="flex justify-center">
                 <ApplicationLogo className='h-[10rem]'/>
               </div>
 

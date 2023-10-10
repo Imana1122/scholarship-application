@@ -3,10 +3,12 @@ import { useForm } from '@inertiajs/react';
 import GuestLayoutComponent from '../../../components/pagelayouts/GuestLayoutComponent';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
-import Typography from '@mui/material/Typography';
+import ErrorIcon from "@mui/icons-material/Error";
+import Alert from "@mui/material/Alert";
 
-const ResetPassword = ({ phone_number, code }) => {
-  const { data, setData, post, errors, processing } = useForm({
+const ResetPassword = (props) => {
+  const { data, setData, put, errors, processing } = useForm({
+    phone_number:props.phone_number,
     password: '',
     password_confirmation: '',
   });
@@ -14,13 +16,8 @@ const ResetPassword = ({ phone_number, code }) => {
   const submit = (e) => {
     e.preventDefault();
 
-    post('/resetPassword', {
-      phone_number: phone_number,
-      password: data.password,
-      password_confirmation: data.password_confirmation,
-    }).then(() => {
-    });
-  };
+    put('/user/reset-password');
+  }
 
   return (
     <GuestLayoutComponent title="Reset Password">
@@ -28,9 +25,14 @@ const ResetPassword = ({ phone_number, code }) => {
         This is the password reset field. Create a stronger password this time.
       </div>
 
-      {data.message && (
-        <div className="mb-4 font-medium text-sm text-green-600">{data.message}</div>
-      )}
+       { props.errors.error &&(
+          <Alert severity="error" sx={{ display: "flex", alignItems: "center", marginBottom:3 }}>
+              <span className="flex items-center">
+                {props.errors.error}
+                <ErrorIcon sx={{ ml: 1 }} />
+              </span>
+          </Alert>
+        )}
 
       <form onSubmit={submit} className="flex flex-col justify-center space-y-5">
         <div className="relative">

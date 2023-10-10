@@ -20,10 +20,12 @@ import {
 } from '@mui/material';
 import UserLayoutComponent from '../../components/pagelayouts/UserLayoutComponent';
 import { inputCss } from '../../components/css-components/text-field';
+import { Link } from '@inertiajs/react';
 
 
 
 export default function Contact(props) {
+
 
   const [formData, setFormData] = useState({
     first_name: '',

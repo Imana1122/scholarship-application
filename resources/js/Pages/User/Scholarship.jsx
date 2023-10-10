@@ -22,11 +22,11 @@ export default function Scholarship(props) {
     const tabContents = {
 
       Apply: {
-        to: '/scholarship-apply',
+        to: '/scholarship/apply',
         content: props.isScholarshipOpen?(<ScholarshipApplication  />):(<div className='flex justify-center m-10'><Typography>Not open now!! Check notices.</Typography></div>),
       },
       'Admit Card': {
-        to: '/scholarship-admit-card/request-form',
+        to: '/scholarship/admit-card/request-form',
         content: (
           <div className="flex flex-col space-y-2 p-5">
             <Typography variant='subtitle1' sx={{ fontWeight: 700, color: 'blue' }}>
@@ -35,7 +35,7 @@ export default function Scholarship(props) {
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                router.visit(`/scholarship-admit-card/${data.id}`);
+                router.visit(`/scholarship/admit-card/${data.id}`);
               }}
             >
               <TextField
@@ -60,7 +60,7 @@ export default function Scholarship(props) {
         ),
       },
       Result: {
-        to: props.student ? `/scholarship-result/${props.student.id}`:'/scholarship-result',
+        to: props.student ? `/scholarship/result/${props.student.id}`:'/scholarship/result',
         content: (
           <div>
             {props.student ? ( props.student.rank || props.student.result ?
@@ -94,7 +94,7 @@ export default function Scholarship(props) {
                 <form
                   onSubmit={(e) => {
                     e.preventDefault();
-                    router.visit(`/scholarship-result/${data.id}`);
+                    router.visit(`/scholarship/result/${data.id}`);
                   }}
                 >
                   <TextField

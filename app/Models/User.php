@@ -55,7 +55,7 @@ class User extends Authenticatable
         return $this->belongsTo(Role::class);
     }
 
-    public function resetToken()
+    public function passwordResetToken()
     {
         return $this->hasOne(UserPasswordResetToken::class, 'phone_number', 'phone_number');
     }

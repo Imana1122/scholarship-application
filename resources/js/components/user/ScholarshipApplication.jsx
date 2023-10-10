@@ -20,7 +20,7 @@ export const ScholarshipApplication = () => {
 
   const onSubmit = (e) => {
     e.preventDefault();
-    post(`/scholarship-apply/${data.id}`, { data });
+    post(`/scholarship/apply/${data.id}`, { data });
   };
 
   return (

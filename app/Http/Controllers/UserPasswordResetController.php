@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\School;
+use App\Models\User;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -10,30 +10,30 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rules\Password;
 use Inertia\Inertia;
 
-class SchoolPasswordResetController extends Controller
+class UserPasswordResetController extends Controller
 {
     public function showSendTokenForm()
     {
-        return Inertia::render('Auth/School/SendToken');
+        return Inertia::render('Auth/User/SendToken');
     }
 
     public function showVerifyTokenForm($id)
     {
-        return Inertia::render('Auth/School/VerifyToken', ['school_phone' => $id]);
+        return Inertia::render('Auth/User/VerifyToken', ['phone_number' => $id]);
     }
 
     public function showResetPasswordForm($id)
     {
-        return Inertia::render('Auth/School/ResetPassword', ['school_phone' => $id]);
+        return Inertia::render('Auth/User/ResetPassword', ['phone_number' => $id]);
     }
 
     public function sendToken(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'school_phone' => [
+            'phone_number' => [
                 'required',
                 'numeric',
-                'exists:Schools,school_phone',
+                'exists:users,phone_number',
             ],
         ]);
 
@@ -41,7 +41,7 @@ class SchoolPasswordResetController extends Controller
             return redirect()->back()->withErrors($validator)->withInput();
         }
 
-        $school_phone = strval($request->input('school_phone'));
+        $phone_number = strval($request->input('phone_number'));
 
         $verification_token = mt_rand(10000, 99999);
         $encryptedToken = Hash::make($verification_token);
@@ -51,24 +51,24 @@ class SchoolPasswordResetController extends Controller
             $response = $client->post('https://sms.aakashsms.com/sms/v3/send', [
                 'form_params' => [
                     'auth_token' => 'c1eecbd817abc78626ee119a530b838ef57f8dad9872d092ab128776a00ed31d',
-                    'to' => $school_phone,
+                    'to' => $phone_number,
                     'text' => "Your verification token is: $verification_token",
                 ],
             ]);
 
             if ($response->getStatusCode() === 200) {
                 // Eager load the passwordResetToken relationship
-                $School = School::with('passwordResetToken')->where('school_phone', $school_phone)->first();
+                $user = User::with('passwordResetToken')->where('phone_number', $phone_number)->first();
 
-                // Create or update the SchoolPasswordResetToken
-                if (!$School->passwordResetToken) {
-                    $School->passwordResetToken()->create([
+                // Create or update the UserPasswordResetToken
+                if (!$user->passwordResetToken) {
+                    $user->passwordResetToken()->create([
                         'verification_token' => $encryptedToken,
                         'expires_at' => now()->addMinutes(1),
                         'verification_status' => false,
                     ]);
                 } else {
-                    $School->passwordResetToken->update([
+                    $user->passwordResetToken->update([
                         'verification_token' => $encryptedToken,
                         'expires_at' => now()->addMinutes(1),
                         'verification_status' => false,
@@ -76,7 +76,7 @@ class SchoolPasswordResetController extends Controller
                 }
 
                 // Redirect to another URL with a success message
-                return redirect("/School/verify-token-form/$school_phone");
+                return redirect("/user/verify-token-form/$phone_number");
             } else {
                 // Redirect back with an error message
                 return back()->with('error', 'Failed to send verification token');
@@ -92,7 +92,7 @@ class SchoolPasswordResetController extends Controller
     public function verifyToken(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'school_phone' => ['required', 'numeric'],
+            'phone_number' => ['required', 'numeric'],
             'verification_token' => ['required', 'numeric'],
         ]);
 
@@ -100,17 +100,17 @@ class SchoolPasswordResetController extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        $school_phone = $request->input('school_phone');
+        $phone_number = $request->input('phone_number');
         $verification_token = $request->input('verification_token');
 
         // Eager load the passwordResetToken relationship
-        $School = School::with('passwordResetToken')->where('school_phone', $school_phone)->first();
+        $user = User::with('passwordResetToken')->where('phone_number', $phone_number)->first();
 
-        if (!$School || !$School->passwordResetToken) {
+        if (!$user || !$user->passwordResetToken) {
             return response()->json(['error' => 'Verification token is missing or expired.', 'verification_status' => false], 404);
         }
 
-        $verificationRecord = $School->passwordResetToken;
+        $verificationRecord = $user->passwordResetToken;
 
         $expiresAt = \Carbon\Carbon::parse($verificationRecord->expires_at, 'Asia/Kathmandu');
         if ($expiresAt->isBefore(now('Asia/Kathmandu')->subMinutes(1))) {
@@ -132,7 +132,7 @@ class SchoolPasswordResetController extends Controller
     public function resetPassword(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'school_phone' => 'required|exists:Schools,school_phone',
+            'phone_number' => 'required|exists:users,phone_number',
             'password' => [
                 'required',
                 'confirmed',
@@ -144,29 +144,29 @@ class SchoolPasswordResetController extends Controller
             return response()->json(['errors' => $validator->errors()], 422);
         }
 
-        // Find the School by the school_phone
-        $School = School::where('school_phone', $request->school_phone)->first();
+        // Find the user by the phone_number
+        $user = User::where('phone_number', $request->phone_number)->first();
 
-        if (!$School) {
-            return response()->json(['error' => 'School not found'], 404);
+        if (!$user) {
+            return response()->json(['error' => 'User not found'], 404);
         }
 
         // Eager load the passwordResetToken relationship
-        $verificationRecord = $School->passwordResetToken;
+        $verificationRecord = $user->passwordResetToken;
 
         $expiresAt = \Carbon\Carbon::parse($verificationRecord->expires_at, 'Asia/Kathmandu');
         if (!$verificationRecord || !$verificationRecord->verification_status || $expiresAt->isBefore(now('Asia/Kathmandu')->subMinutes(1))) {
             return back()->withErrors(['error' => 'Invalid or expired verification token. Please resend the token.']);
         }
 
-        // Update the School's password
-        $School->update([
+        // Update the user's password
+        $user->update([
             'password' => $request->password,
         ]);
 
         // Mark the verification record as used
         $verificationRecord->update(['verification_status' => false]);
 
-        return redirect('/School-login-form');
+        return redirect('/user-login-form');
     }
 }

@@ -3,51 +3,62 @@ import { Box, IconButton, ImageList, ImageListItem, ImageListItemBar } from "@mu
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import UserLayoutComponent from "../components/pagelayouts/UserLayoutComponent";
 import { ScholarshipBanner } from "../Components/user/ScholarshipBanner";
-
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/effect-coverflow';
+import 'swiper/css/pagination';
+import 'swiper/css/navigation';
+import { EffectCoverflow, Pagination, Navigation } from 'swiper/modules';
 
 export default function Welcome(props) {
-    const [imageData,setImageData]=React.useState(props.images)
-
+  const {images} = props;
   return (
     <UserLayoutComponent activeRoute={props.activeRoute}>
       <div className="flex flex-col w-full">
 
         {/* Render the child routes/components */}
-        {imageData && (
+        {  images && (
 
-        <div className="w-full">
-            <Box sx={{ width: 'full', height: 'fit', overflowY: 'scroll' }}>
-                <ImageList variant="woven" cols={3} gap={3}  sx={{transform: 'translateZ(0)',}}>
-                    {imageData.map((image) => (
-                        <ImageListItem key={image.background_image}>
-                            <img
+        <div className="w-full container">
 
-                            src={`/storage/images/${image.background_image}?w=248&fit=crop&auto=format`}
-                            alt={image.title}
-                            />
-                            <ImageListItemBar
-                                sx={{
-                                background:
-                                    'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, ' +
-                                    'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
-                                }}
-                                title={image.title}
-                                position="top"
-                                actionIcon={
-                                <IconButton
-                                    sx={{ color: 'white' }}
-                                    aria-label={`star ${image.title}`}
-                                >
-                                    <StarBorderIcon />
-                                </IconButton>
-                                }
-                                actionPosition="left"
-                            />
-                        </ImageListItem>
+            <Swiper
+        effect={'coverflow'}
+        grabCursor={true}
+        centeredSlides={true}
+        loop={true}
+        slidesPerView={'auto'}
+        coverflowEffect={{
+          rotate: 0,
+          stretch: 0,
+          depth: 100,
+          modifier: 2.5,
+        }}
+        pagination={{ el: '.swiper-pagination', clickable: true }}
+        navigation={{
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+          clickable: true,
+        }}
+        modules={[EffectCoverflow, Pagination, Navigation]}
+        className="swiper_container"
+      >
+        {  images.length > 0 &&   images.map((image,index)=>(
+            <SwiperSlide key={index}>
+            <img src={`/storage/images/${image.background_image}`} alt="background" />
+          </SwiperSlide>
+        ))}
 
-                    ))}
-                </ImageList>
-            </Box>
+        <div className="slider-controler">
+          <div className="swiper-button-prev slider-arrow">
+            <ion-icon name="arrow-back-outline"></ion-icon>
+          </div>
+          <div className="swiper-button-next slider-arrow">
+            <ion-icon name="arrow-forward-outline"></ion-icon>
+          </div>
+          <div className="swiper-pagination"></div>
+        </div>
+      </Swiper>
+
         </div>
         )}
         <div className="w-full">

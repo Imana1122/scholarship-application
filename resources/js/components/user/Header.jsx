@@ -48,7 +48,7 @@ export const Header = ({ navigation }) => {
             </div>
             <Button
               color="primary"
-              href="/login-choose-user"
+              href="/auth/login-choose-user"
               component={Link}
               variant="contained"
             >
@@ -95,7 +95,7 @@ export const Header = ({ navigation }) => {
           >
            <Button
               color="primary"
-              href="/login-choose-user"
+              href="/auth/login-choose-user"
               component={Link}
               variant="contained"
             >

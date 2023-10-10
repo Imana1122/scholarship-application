@@ -1,7 +1,5 @@
 import React from 'react';
-import UserLayoutComponent from '../../components/pagelayouts/UserLayoutComponent';
 import {
-  List,
   ListItem,
   ListItemAvatar,
   ListItemText,
@@ -11,32 +9,31 @@ import {
   Grid,
 } from '@mui/material';
 
-export default function Downloads(props) {
-  const { members } = props;
-
+export default function Members({members}) {
   return (
-    <UserLayoutComponent>
       <div>
-        <Grid container spacing={3}>
+        <Grid container spacing={1}>
           {members.map((member, index) => (
-            <Grid item xs={12} sm={4} key={index}>
-              <ListItem alignItems="flex-start">
+            <Grid item xs={12} key={index}>
+              <ListItem alignItems="center">
                 <ListItemAvatar>
                   <Avatar
                     alt="Profile Picture"
                     src={`/storage/images/${member.imagePath}`}
-                    style={{ width: 100, height: 100 }} // Increase the size here
+                    style={{ width: 100, height: 100 , marginRight:5}} // Increase the size here
                   />
                 </ListItemAvatar>
                 <ListItemText
-                  primary={member.name}
+                  primary={
+                    <>
+                    {member.name}
+                    <span className='ml-3 text-sm text-slate-400'>
+                      {member.phone_number}
+                    </span>
+                    </>
+                }
                   secondary={
-                    <React.Fragment>
-                      <Typography variant="body2" color="textPrimary">
-                        {member.phone_number}
-                      </Typography>
-                      {member.description}
-                    </React.Fragment>
+                    member.description
                   }
                 />
               </ListItem>
@@ -45,6 +42,5 @@ export default function Downloads(props) {
           ))}
         </Grid>
       </div>
-    </UserLayoutComponent>
   );
 }

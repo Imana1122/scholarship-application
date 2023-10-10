@@ -13,11 +13,7 @@ export default function SendToken() {
   const submit = (e) => {
     e.preventDefault();
 
-    post("/verify-phone", data).then(({ data }) => {
-      Inertia.route("verify-token");
-
-      // Handle the response data here (e.g., show errors, redirect)
-    });
+    post("/user/send-token", data)
   };
 
   return (

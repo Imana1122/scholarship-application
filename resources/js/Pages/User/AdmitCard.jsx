@@ -7,6 +7,7 @@ import { router } from '@inertiajs/react';
 import { Button } from '@mui/material';
 
 export default function AdmitCard(props) {
+
   const {
     first_name,
     last_name,

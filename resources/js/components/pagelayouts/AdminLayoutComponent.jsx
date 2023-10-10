@@ -9,6 +9,7 @@ import {  IoFileTray, IoImageOutline, IoImages, IoInformationCircle, IoPeople, I
 import toast, { Toaster } from 'react-hot-toast';
 import { router } from '@inertiajs/react';
 import axios from 'axios';
+import { ContactPageOutlined, EmailOutlined } from '@mui/icons-material';
 
 export const AdminLayoutComponent = ({ title,currentUser, buttons = "", children }) => {
 
@@ -66,6 +67,18 @@ export const AdminLayoutComponent = ({ title,currentUser, buttons = "", children
             label:'Logo',
             path: '/logo',
             icon: <IoImageOutline/>
+        },
+        {
+            key:'about',
+            label:'About',
+            path: '/about-details/update-form',
+            icon: <IoImageOutline/>
+        },
+        {
+            key:'contact',
+            label:'Contact',
+            path: '/contact/update-form',
+            icon: <ContactPageOutlined/>
         }
     ]
 
@@ -73,7 +86,7 @@ export const AdminLayoutComponent = ({ title,currentUser, buttons = "", children
     const logout=()=>{
         axios.post('/user/logout').then(()=>{
             toast.success('Logged out successfully')
-            router.visit('/login-choose-user')
+            router.visit('/auth/login-choose-user')
         })
     }
 
@@ -92,7 +105,7 @@ export const AdminLayoutComponent = ({ title,currentUser, buttons = "", children
 
 
     return (
-        <div className='flex flex-row bg-neutral-100 h-screen'>
+        <div className='flex flex-row bg-neutral-100 h-screen w-screen'>
           {/* Sidebar component */}
           <motion.div
             className={`${
@@ -110,13 +123,12 @@ export const AdminLayoutComponent = ({ title,currentUser, buttons = "", children
             <Sidebar logout={logout} DASHBOARD_SIDEBAR_LINKS={DASHBOARD_SIDEBAR_LINKS} />
           </div>
 
-          <div className='flex-col h-screen flex'>
+          <div className='flex-col h-screen flex flex-1'>
             {/* Header component */}
             <Header logout={logout} currentUser={currentUser} onSidebarToggle={handleSidebarToggle} />
 
-            <div className='min-h-0 flex-1 flex'>
               {/* Children container with fixed width and height */}
-              <div className="w-screen overflow-auto md:w-[65rem] space-y-3 pt-6 px-2">
+              <div className="min-h-0 mt-5 w-screen h-full overflow-auto md:w-[112rem] flex flex-col space-y-3 pt-6 px-2">
                 <header className="bg-white shadow header">
                   <div className="flex mx-auto justify-between items-center w-full ">
                     {/* Title */}
@@ -128,12 +140,12 @@ export const AdminLayoutComponent = ({ title,currentUser, buttons = "", children
                     {buttons}
                   </div>
                 </header>
+                <Toaster/>
                 {/* Outlet to render child routes */}
                 <div>{children}</div>
-                <Toaster/>
+
               </div>
             </div>
-          </div>
         </div>
       );
 

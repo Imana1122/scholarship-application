@@ -1,22 +1,31 @@
 import React, { useState, useEffect } from "react";
-import { useForm } from "@inertiajs/react";
 import GuestLayoutComponent from "../../../components/pagelayouts/GuestLayoutComponent";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import Typography from "@mui/material/Typography";
 import Alert from "@mui/material/Alert";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 import ErrorIcon from "@mui/icons-material/Error";
+import axios from "axios"; // Import Axios
+import { router } from "@inertiajs/react";
 
-export default function VerifyToken({ phone_number }) {
-  const { data, setData, post, processing, errors } = useForm({
-    verification_code: "",
-  });
-
-  const [messageResend, setMessageResend] = useState("");
+export default function VerifyToken(props) {
+  const [data, setData] = useState({ verification_token: "" });
+  const [errors, setErrors] = useState({});
+  const [processing, setProcessing] = useState(false);
+  const [resetProcessing, setResetProcessing] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
   const [error, setError] = useState("");
-  const [seconds, setSeconds] = useState(120);
+  const [seconds, setSeconds] = useState(60);
   const [recentlySuccessful, setRecentlySuccessful] = useState(false);
+
+  useEffect(()=>{
+    if(props.errors.error ){
+        setError(props.errors.error);
+    }
+    if(props.errors.errorShow ){
+        setError(props.errors.errorShow);
+    }
+  })
 
   // Timer setup and countdown effect
   useEffect(() => {
@@ -41,39 +50,47 @@ export default function VerifyToken({ phone_number }) {
   // Form submit handler
   const submit = (e) => {
     e.preventDefault();
-    setMessageResend("");
+    setSuccessMessage("");
     setError("");
+    setProcessing(true); // Start processing
 
-    post("/verify-code", {
-      phone_number,
-      verification_code: data.verification_code,
-    }).then(({ data }) => {
-      if (data.error) {
-        setError(data.error);
+    axios
+      .put("/user/verify-token", {
+        phone_number:props.phone_number,
+        verification_token: data.verification_token,
+      })
+      .then(({ data }) => {
+        console.log(data)
+        if (data.message) {
+          setSuccessMessage(data.message);
+          router.visit(`/user/reset-password-form/${props.phone_number}`);
+        }
+      })
+      .catch((error) => {
+        if(error.response.data.error){
+            setError(error.response.data.error)
+        }
+        if (error.response.data.errors) {
+          setErrors(error.response.data.errors);
+        }
+      })
+      .finally(() => {
+        setProcessing(false); // Stop processing
         recentlySuccessfulModal();
-      } else if (data.message) {
-        setMessageResend(data.message);
-        recentlySuccessfulModal();
-        Inertia.route('reset-password')
-      }
-    });
+      });
   };
 
   // Resend verification code handler
   const resendCode = () => {
     setError("");
-    setMessageResend("");
-    setSeconds(120);
+    setSuccessMessage("");
+    setSeconds(60);
+    setProcessing(false); // Start processing
+    setResetProcessing(true);
 
-    post("/verify-phone", { phone_number }).then(({ data }) => {
-      if (data.errorShow) {
-        setError(data.errorShow);
-        recentlySuccessfulModal();
-      } else if (data.message) {
-        setMessageResend(data.message);
-        recentlySuccessfulModal();
-      }
-    });
+    axios
+      .post("/user/send-token", { phone_number:props.phone_number }).finally(()=>{setResetProcessing(false)})
+
   };
 
   return (
@@ -84,25 +101,21 @@ export default function VerifyToken({ phone_number }) {
       </div>
       <div className="my-5">
         {/* Success Message */}
-        {recentlySuccessful && (
+        {recentlySuccessful && successMessage &&(
           <Alert severity="success" sx={{ display: "flex", alignItems: "center" }}>
-            {messageResend && (
               <span className="flex items-center">
-                {messageResend}
+                {successMessage}
                 <CheckCircleIcon sx={{ ml: 1 }} />
               </span>
-            )}
           </Alert>
         )}
-        {/** Failure Message */}
-        {recentlySuccessful && (
+        {/* Failure Message */}
+        {recentlySuccessful && error && (
           <Alert severity="error" sx={{ display: "flex", alignItems: "center" }}>
-            {error && (
               <span className="flex items-center">
                 {error}
                 <ErrorIcon sx={{ ml: 1 }} />
               </span>
-            )}
           </Alert>
         )}
       </div>
@@ -112,16 +125,16 @@ export default function VerifyToken({ phone_number }) {
           <TextField
             fullWidth
             variant="outlined"
-            id="verification_code"
-            name="verification_code"
+            id="verification_token"
+            name="verification_token"
             type="number"
-            autoComplete="verification_code"
+            autoComplete="verification_token"
             required
-            value={data.verification_code}
-            onChange={(e) => setData("verification_code", e.target.value)}
+            value={data.verification_token}
+            onChange={(e) => setData({ ...data, verification_token: e.target.value })}
             label="Verification Code"
-            error={!!errors.verification_code}
-            helperText={errors.verification_code || " "}
+            error={!!errors.verification_token}
+            helperText={errors.verification_token || " "}
           />
         </div>
         <div className="flex justify-end items-end">
@@ -132,7 +145,7 @@ export default function VerifyToken({ phone_number }) {
             }`}
             onClick={resendCode}
           >
-            {processing ? "Resending" : "Resend"}
+            {resetProcessing ? "Resending" : "Resend"}
           </p>
         </div>
         <div className="mt-4 flex items-center justify-between">

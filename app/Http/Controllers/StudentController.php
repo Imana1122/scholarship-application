@@ -43,6 +43,11 @@ class StudentController extends Controller
             ->orderBy('rank')
             ->get();
 
+        // Retrieve 'Failed' students in ascending order of 'rank'
+        $onHoldStudents = Student::where('result', 'On Hold')
+            ->orderBy('rank')
+            ->get();
+
         return Inertia::render('Admin/Students', [
             'currentUser' => $user,
             'students' => [
@@ -50,6 +55,7 @@ class StudentController extends Controller
                 'Scholarship_Applied' => $appliedStudents,
                 'Passed' => $passedStudents,
                 'Failed' => $failedStudents,
+                'On Hold' => $onHoldStudents
             ],
         ]);
     }
@@ -122,6 +128,10 @@ class StudentController extends Controller
         return $student->result === 'Failed';
     })->sortBy('rank')->values()->all(); // Convert to array
 
+    $onHoldStudents = collect($students)->filter(function ($student) {
+        return $student->result === 'On Hold';
+    })->sortBy('rank')->values()->all(); // Convert to array
+
 
     return Inertia::render('School/Students', [
         'currentUser'=>$school,
@@ -129,7 +139,8 @@ class StudentController extends Controller
             'Students' => $students,
             'Applied_For_Scholarship'=>$appliedStudents,
             'Passed'=>$passedStudents,
-            'Failed'=>$failedStudents
+            'Failed'=>$failedStudents,
+            'On Hold'=>$onHoldStudents
             ]
     ]);
     }

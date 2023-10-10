@@ -33,7 +33,7 @@ class UserAuthController extends Controller
     public function logout(Request $request)
     {
         Auth::guard('user')->logout();
-        return redirect('/school-login-form'); // Redirect after school user logout
+        return redirect('/auth/school-login-form'); // Redirect after school user logout
     }
 
     public function showRegisterForm(Request $request){

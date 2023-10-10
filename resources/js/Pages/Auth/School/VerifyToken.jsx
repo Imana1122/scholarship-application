@@ -12,9 +12,10 @@ export default function VerifyToken(props) {
   const [data, setData] = useState({ verification_token: "" });
   const [errors, setErrors] = useState({});
   const [processing, setProcessing] = useState(false);
+  const [resetProcessing, setResetProcessing] = useState(false);
   const [successMessage, setSuccessMessage] = useState("");
   const [error, setError] = useState("");
-  const [seconds, setSeconds] = useState(120);
+  const [seconds, setSeconds] = useState(60);
   const [recentlySuccessful, setRecentlySuccessful] = useState(false);
 
   useEffect(()=>{
@@ -83,11 +84,12 @@ export default function VerifyToken(props) {
   const resendCode = () => {
     setError("");
     setSuccessMessage("");
-    setSeconds(120);
-    setProcessing(true); // Start processing
+    setSeconds(60);
+    setProcessing(false); // Start processing
+    setResetProcessing(true);
 
     axios
-      .post("/school/send-token", { school_phone })
+      .post("/school/send-token", { school_phone:props.school_phone }).finally(()=>{setResetProcessing(false)})
 
   };
 
@@ -143,7 +145,7 @@ export default function VerifyToken(props) {
             }`}
             onClick={resendCode}
           >
-            {processing ? "Resending" : "Resend"}
+            {resetProcessing ? "Resending" : "Resend"}
           </p>
         </div>
         <div className="mt-4 flex items-center justify-between">

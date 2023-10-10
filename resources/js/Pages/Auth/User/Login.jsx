@@ -22,7 +22,7 @@ function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    post("/user/login", data,
+    post("/auth/user/login", data,
     );
   };
 
@@ -80,7 +80,7 @@ function Login() {
 
           <div className="text-sm flex justify-end">
             <Link
-              href="/send-token"
+              href="/user/send-token-form"
               className="font-semibold text-indigo-600 hover:text-indigo-500"
             >
               Forgot password?

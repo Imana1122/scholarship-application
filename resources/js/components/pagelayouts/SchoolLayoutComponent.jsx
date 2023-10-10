@@ -31,7 +31,7 @@ export const SchoolLayoutComponent = ({ title,currentUser, buttons = "", childre
 
     useEffect(()=>{
         if(!currentUser){
-            router.visit('/school-login-form');
+            router.visit('/auth/school-login-form');
         }
     })
 

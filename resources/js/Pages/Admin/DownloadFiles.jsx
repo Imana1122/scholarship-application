@@ -15,6 +15,11 @@ import 'react-pdf/dist/esm/Page/TextLayer.css';
 import 'react-pdf/dist/esm/Page/AnnotationLayer.css';
 import { Close, SkipNextOutlined, SkipPreviousOutlined } from "@mui/icons-material";
 import {Modal as MuiModal} from '@mui/material';
+import { Worker } from '@react-pdf-viewer/core';
+import { Viewer } from '@react-pdf-viewer/core';
+import '@react-pdf-viewer/core/lib/styles/index.css';
+import '@react-pdf-viewer/default-layout/lib/styles/index.css'
+import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout';
 
 export default function DownloadFiles(props) {
   const { searchQuery } = useStateContext();
@@ -40,31 +45,7 @@ export default function DownloadFiles(props) {
 
   const [isFileModalOpen, setIsFileModalOpen] = useState(false);
   const [fileUrl, setFileUrl] = useState("");
-  const [numPages, setNumPages] = useState(0);
-  const [pageNumber, setPageNumber] = useState(1);
-
-  function onDocumentLoadSuccess({ numPages }) {
-    setNumPages(numPages);
-  }
-
-  const handlePageChange = (newPageNumber) => {
-    setPageNumber(newPageNumber);
-  };
-
-  const [scale, setScale] = useState(1.0); // Initial zoom level
-
-const handleZoomIn = () => {
-  if (scale < 5.0) { // Adjust the maximum zoom level as needed
-    setScale(scale + 0.1); // You can adjust the zoom increment
-  }
-};
-
-const handleZoomOut = () => {
-  if (scale > 0.2) { // Adjust the minimum zoom level as needed
-    setScale(scale - 0.1); // You can adjust the zoom decrement
-  }
-};
-
+  const newplugin = defaultLayoutPlugin();
 
   // Function to open the modal with the file URL
   const openModal = (url) => {
@@ -199,58 +180,29 @@ const handleZoomOut = () => {
 
         {/* Modal for displaying PDF */}
         <MuiModal
-        open={isFileModalOpen}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-        onClose={() => setIsFileModalOpen(false)}>
-          <div className="relative flex flex-col">
+          open={isFileModalOpen}
+          aria-labelledby="modal-modal-title"
+          aria-describedby="modal-modal-description"
+          onClose={() => setIsFileModalOpen(false)}
+        >
+        <div className='flex flex-col items-center w-full'>
+          <Button color='error' variant='contained' onClick={() => setIsFileModalOpen(false)}>Close</Button>
+          <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js">
+                {fileUrl && <>
+                    <div
+                        style={{
+                            border: '1px solid rgba(0, 0, 0, 0.3)',
+                            height: '750px',
+                            width:'100%'
+                        }}
+                    >
+                        <Viewer fileUrl={fileUrl} plugins={[newplugin]}/>
+                    </div>
+                </>}
+                {!fileUrl && <>No PDF</>}
+          </Worker>
 
-            <div className="sticky top-0 w-full justify-between bg-white p-4 border-t border-gray-300 z-50 flex">
-              <div className='flex space-x-3'>
-              <Button onClick={() => handleZoomOut()} variant="outlined">
-                <MinusCircleIcon />
-              </Button>
-              <Button onClick={() => handleZoomIn()} variant="outlined">
-                <PlusCircleIcon />
-              </Button>
-              </div>
-              <Button onClick={() => setIsFileModalOpen(false)} variant="contained" color='error'>
-                <Close />
-              </Button>
-            </div>
-            <div className="w-full h-[500px] overflow-auto flex justify-center" style={{ paddingBottom: "50px" }}>
-              {/* ... PDF content */}
-              <Document file={fileUrl} onLoadSuccess={onDocumentLoadSuccess}>
-                <Page pageNumber={pageNumber} scale={scale} />
-              </Document>
-            </div>
-            <div className="sticky flex bottom-0 left-0 right-0 bg-white p-4 border-t border-gray-300">
-              <Button
-                variant="outlined"
-                className="flex justify-start"
-              >
-                {pageNumber} <span className="mx-2"> of </span> {numPages}
-              </Button>
-              <div className="w-full text-center flex space-x-3 justify-end">
-                {pageNumber > 1 && (
-                  <Button
-                    onClick={() => handlePageChange(pageNumber - 1)}
-                    variant="outlined"
-                  >
-                    <SkipPreviousOutlined />
-                  </Button>
-                )}
-                {pageNumber < numPages && (
-                  <Button
-                    onClick={() => handlePageChange(pageNumber + 1)}
-                    variant="outlined"
-                  >
-                    <SkipNextOutlined />
-                  </Button>
-                )}
-              </div>
-            </div>
-          </div>
+        </div>
         </MuiModal>
 
         {/* Modal for delete confirmation */}

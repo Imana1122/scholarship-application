@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Avatar, Button, Typography } from '@mui/material';
 import { CloudUploadOutlined } from '@mui/icons-material';
 import { ImageToBase64 } from '../utility/ImageToBase64';
+import { HiPhotograph } from 'react-icons/hi';
 
 
 export const LargeImageInput = ({ setData, imagePath, error })=> {
@@ -24,7 +25,7 @@ export const LargeImageInput = ({ setData, imagePath, error })=> {
     <div className={`flex flex-col items-center border border-1 p-3 rounded-sm ${error? 'border-red-500':'border-slate-500'}`}>
 
         <div className='flex flex-col items-center space-y-3'>
-          <img src={imagePreview?imagePreview:`/storage/images/${imagePath}`} className='w-[300px] h-[300px] rounded-md'/>
+          {imagePath || imagePreview ? (<img src={imagePreview?imagePreview:`/storage/images/${imagePath}`} className='w-[300px] h-[300px] rounded-md'/>):(<HiPhotograph className='w-20 h-20 text-slate-500'/>)}
 
           <Button
             variant="contained"

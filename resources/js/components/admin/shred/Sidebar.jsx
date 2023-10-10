@@ -13,15 +13,16 @@ export const Sidebar = ({ logout, DASHBOARD_SIDEBAR_LINKS, handleSidebarToggle }
 
     return (
         <div className='bg-neutral-900 w-60 h-screen p-3 flex flex-col text-white'>
-            <div className='w-full flex justify-end '>
+          <div className='w-full flex justify-end '>
             <TfiArrowCircleLeft onClick={handleSidebarToggle} className=' rounded-full text-white text-2xl cursor-pointer md:hidden'/>
-            </div>
+          </div>
           <div className='flex items-center gap-2 px-2 py-3'>
-
-            <span className='text-neutral-100 text-lg'><ApplicationLogo className='w-full h-full'/> </span>
+          <div className='w-full flex justify-center'>
+            <ApplicationLogo className='h-20'/>
+          </div>
           </div>
           <div className='flex-1 flex flex-col overflow-auto'>
-            <div className='flex-1 py-8 flex flex-col gap-0.5 overflow-auto '>
+            <div className='flex-1 py-5 mb-5 flex flex-col gap-0.5 overflow-auto '>
               {/* Render sidebar links */}
               {DASHBOARD_SIDEBAR_LINKS.map((item) => {
                 return (
@@ -30,7 +31,7 @@ export const Sidebar = ({ logout, DASHBOARD_SIDEBAR_LINKS, handleSidebarToggle }
               })}
             </div>
 
-            <div className='flex flex-col gap-0.5 pt-2 border-t border-neutral-700'>
+            <div className='flex flex-col gap-0.5 pt-2 border-t border-neutral-500'>
               {/* Render bottom links */}
               {DASHBOARD_SIDEBAR_BOTTOM_LINKS.map((item) => {
                 return (

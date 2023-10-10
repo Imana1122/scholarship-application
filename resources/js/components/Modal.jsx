@@ -51,9 +51,11 @@ function Modal({ children, show = false, maxWidth = '2xl', closeable = true, onC
             className={`mb-6 bg-white rounded-lg overflow-hidden shadow-xl transform transition-all sm:w-full sm:mx-auto p-2 ${maxWidthClass}`}
           >
             {/* Add a focusable button for closing the modal */}
-            <Button className="focus:outline-none" onClick={close} variant='outlined' color='error'>
+            <div className='flex justify-end py-3'>
+            <Button className="focus:outline-none" onClick={close} variant='contained' color='error'>
               Close
             </Button>
+            </div>
             {children}
           </Dialog.Panel>
         </Transition.Child>

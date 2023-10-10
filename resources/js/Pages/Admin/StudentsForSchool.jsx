@@ -13,19 +13,7 @@ import { Tab } from "@headlessui/react";
 import classNames from "classnames";
 import { Button } from "@mui/material";
 
-export default function Students(props){
-  const { searchQuery } = useStateContext();
-  const [ students, setStudents] = useState([]);
-
-  useEffect(()=>{
-    if(searchQuery){
-        axios.get(`/user/search-students/${searchQuery}`).then((response)=>{setStudents(response.data)})
-    }else{
-        setStudents(props.students)
-    }
-  },[searchQuery])
-
-  const [isModalOpen, setIsModalOpen] = useState(false);
+export default function StudentsForSchool({students}){
 
   const [isImageModalOpen, setIsImageModalOpen] = React.useState(false);
   const [imageUrl, setImageUrl]=React.useState('');
@@ -37,30 +25,25 @@ export default function Students(props){
   };
 
   return (
-    <AdminLayoutComponent
-      title="Students"
-      currentUser={props.currentUser}
-
-      currentStudent={props.currentStudent}
-    >
+    <>
       {/* Render students in tab format */}
-      <div className='md:flex md:justify-center md:items-center'>
+      <div className='md:flex md:justify-center md:items-center '>
 
         {Object.keys(students).length > 0 ? (
-          <div className="block px-1 py-16 sm:px-0 w-full">
+          <div className="block px-1 py-16 sm:px-0 overflow-x-auto">
             <Tab.Group>
               {/* Tab List */}
-              <Tab.List className="flex flex-col md:flex-row justify-between rounded-xl bg-blue-900/20 p-1">
+              <Tab.List className="flex flex-col md:flex-row justify-between rounded-xl bg-yellow-700/20 p-1 ">
                 {Object.keys(students).map((student) => (
                   <Tab
                     key={student}
                     className={({ selected }) =>
                       classNames(
-                        'w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-blue-700',
-                        'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2',
+                        'w-screen md:w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-black',
+                        'ring-white ring-opacity-60 ring-offset-2 ring-offset-green-400 focus:outline-none focus:ring-2',
                         selected
                           ? 'bg-white shadow'
-                          : 'text-blue-100 hover:bg-white/[0.12] hover:text-white'
+                          : 'text-green-700 hover:bg-white/[0.12] hover:text-white'
                       )
                     }
                   >
@@ -75,13 +58,13 @@ export default function Students(props){
                   <Tab.Panel
                     key={idx}
                     className=
-                      'rounded-xl bg-white p-3 overflow-x-auto max-w-full ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2'
+                      'rounded-xl bg-white p-3 overflow-x-auto max-w-full ring-white ring-opacity-60 ring-offset-2 ring-offset-green-400 focus:outline-none focus:ring-2'
 
                   >
                     {/* Table to display students */}
                     <div  style={{ overflowX: 'auto' }}>
                     <table className="w-full border border-collapse border-gray-200 rounded-sm" >
-                    <thead className="bg-slate-700 text-white">
+                    <thead className="bg-yellow-700/20 text-black">
                         <tr>
                           <th className="border border-gray-200 p-2">ID</th>
                           <th className="border border-gray-200 p-2">Symbol_Number</th>
@@ -112,8 +95,8 @@ export default function Students(props){
                         {students && students.length > 0 ? (
                           students.map((student) => (
                             <tr className="border border-gray-200" key={student.id}>
-                              <td className="border border-gray-200 p-2"><div dangerouslySetInnerHTML={{ __html: highlightSearchQuery(student.id.toString(), searchQuery) }} /></td>
-                              <td className="border border-gray-200 p-2"><div dangerouslySetInnerHTML={{ __html: highlightSearchQuery(student.symbol_number.toString(), searchQuery) }} /></td>
+                              <td className="border border-gray-200 p-2">{student.id}</td>
+                              <td className="border border-gray-200 p-2">{student.symbol_number}</td>
                               <td className="border border-gray-200 p-2 w-20 h-20 flex items-center justify-center">
                                   {student.imagePath ? (
                                       <Button onClick={() => openModal(`/storage/images/${student.imagePath}`)}>View</Button>
@@ -121,7 +104,7 @@ export default function Students(props){
                                       <span className='text-red-500 text-sm'>null</span>
                                   )}
                               </td>
-                              <td className="border border-gray-200 p-2"><div dangerouslySetInnerHTML={{ __html: highlightSearchQuery(student.phone_number.toString(), searchQuery) }} /></td>
+                              <td className="border border-gray-200 p-2">{student.phone_number}</td>
                               <td className="border border-gray-200 p-2">{student.first_name}_{student?.middle_name}_{student.last_name}</td>
                               <td className="border border-gray-200 p-2">{student.gender}</td>
                               <td className="border border-gray-200 p-2">{student.scored_gpa}</td>
@@ -181,6 +164,6 @@ export default function Students(props){
           <p className='text-xl my-5 text-green-700 font-light'>Loading......</p>
         )}
       </div>
-    </AdminLayoutComponent>
+      </>
   );
 };

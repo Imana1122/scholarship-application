@@ -12,11 +12,7 @@ use Inertia\Inertia;
 
 class MemberController extends Controller
 {
-    public function index()
-    {
-        $members = Member::all();
-        return Inertia::render('User/Members',['members'=>$members]);
-    }
+
 
     public function showRegisterForm(){
 

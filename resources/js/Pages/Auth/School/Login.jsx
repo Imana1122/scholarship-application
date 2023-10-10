@@ -22,11 +22,7 @@ function Login() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    post("/school/login", data, {
-      onSuccess: () => {
-        router.visit("dashboard");
-      },
-    });
+    post("/auth/school/login", data)
   };
 
   return (

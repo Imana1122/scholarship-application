@@ -4,6 +4,7 @@ import { Button, List, ListItem, ListItemText } from '@mui/material'
 import { Link } from '@inertiajs/react'
 
 export default function ChooseUser(){
+
   return (
     <GuestLayoutComponent>
         <div className='flex flex-col items-center w-full'>
@@ -14,7 +15,7 @@ export default function ChooseUser(){
           >
             <Button
               color="primary"
-              href="/user-login-form"
+              href="/auth/user-login-form"
               component={Link}
               variant="contained"
               fullWidth
@@ -29,7 +30,7 @@ export default function ChooseUser(){
           >
             <Button
               color="primary"
-              href="/school-login-form"
+              href="/auth/school-login-form"
               component={Link}
               variant="contained"
               fullWidth

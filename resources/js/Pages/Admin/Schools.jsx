@@ -23,6 +23,7 @@ import { CiWarning } from 'react-icons/ci';
 import axios from 'axios';
 import toast from 'react-hot-toast';
 import { Button } from '@mui/material';
+import StudentsForSchool from './StudentsForSchool';
 
 
 function Row( props) {
@@ -86,85 +87,52 @@ function Row( props) {
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={8}>
           <Collapse in={open} timeout="auto" unmountOnExit>
-          {row.students.length > 0 ?(
-            <Box sx={{ margin: 1 }}>
-              <Typography variant="h6" gutterBottom component="div" sx={{ color: 'purple'}} >
-                Students::{row.students.length}</Typography>
-
-              <Table size="small" aria-label="students">
-                <TableHead className='bg-violet-500'>
-                  <TableRow>
-                    <TableCell sx={{ color: 'white', fontWeight: 600, fontSize:15 }}>ID</TableCell>
-                    <TableCell sx={{ color: 'white', fontWeight: 600, fontSize:15 }}>Image</TableCell>
-                    <TableCell sx={{ color: 'white', fontWeight: 600, fontSize:15 }}>Name</TableCell>
-                    <TableCell sx={{ color: 'white', fontWeight: 600, fontSize:15 }}>Phone</TableCell>
-                    <TableCell sx={{ color: 'white', fontWeight: 600, fontSize:15 }}>Gender</TableCell>
-                    <TableCell sx={{ color: 'white', fontWeight: 600, fontSize:15 }}>GPA</TableCell>
-                    <TableCell sx={{ color: 'white', fontWeight: 600, fontSize:15 }}>Father's_Name</TableCell>
-                    <TableCell sx={{ color: 'white', fontWeight: 600, fontSize:15 }}>Mother's_Name</TableCell>
-                    <TableCell sx={{ color: 'white', fontWeight: 600, fontSize:15 }}>Mother's_Phone_Number</TableCell>
-                    <TableCell sx={{ color: 'white', fontWeight: 600, fontSize:15 }}>Father's_Phone_Number</TableCell>
-                    <TableCell sx={{ color: 'white', fontWeight: 600, fontSize:15 }}>Preferred_School</TableCell>
-                    <TableCell sx={{ color: 'white', fontWeight: 600, fontSize:15 }}>Preferred_School_Address</TableCell>
-                    <TableCell sx={{ color: 'white', fontWeight: 600, fontSize:15 }}>Preferred_Major</TableCell>
-                    <TableCell sx={{ color: 'white', fontWeight: 600, fontSize:15 }}>Marks</TableCell>
-                    <TableCell sx={{ color: 'white', fontWeight: 600, fontSize:15 }}>Result</TableCell>
-                    <TableCell sx={{ color: 'white', fontWeight: 600, fontSize:15 }}>Rank</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                   {row.students.map((student, index) => (
-                    <TableRow key={index}>
-                      <TableCell>{student.id}</TableCell>
-                      <TableCell>
-                      {student.imagePath ? (
-                        <Button onClick={() => openModal(`/storage/images/${student.imagePath}`)}>View</Button>
-                      ) : (
-                        <span className='text-red-500 text-sm'>null</span>
-                      )}
-                      </TableCell>
-                      <TableCell>{student.first_name} {student.middle_name && student.middle_name} {student.last_name}</TableCell>
-                      <TableCell>{student.phone_number}</TableCell>
-                      <TableCell>{student.gender}</TableCell>
-                      <TableCell>{student.scored_gpa} </TableCell>
-                      <TableCell>{student.mother_name} </TableCell>
-                      <TableCell>{student.father_name} </TableCell>
-                      <TableCell>{student.mother_phone_number} </TableCell>
-                      <TableCell>{student.father_phone_number} </TableCell>
-                      <TableCell>{student.preferred_school} </TableCell>
-                      <TableCell>{student.preferred_school_address} </TableCell>
-                      <TableCell>{student.preferred_major}</TableCell>
-                      <TableCell>{student.marks?student.marks : <span>uncertain</span>}</TableCell>
-                      <TableCell>{student.result?student.result : <span>uncertain</span>}</TableCell>
-                      <TableCell>{student.rank?student.rank:<span>uncertain</span>}</TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </Box>
-            ):(
-                <p className='text-red-500 text-xl py-5'>No students</p>
-              )}
+          <StudentsForSchool students={row.students}/>
           </Collapse>
         </TableCell>
       </TableRow>
-      {/* Modal for image display */}
-
-
-
-
 
     </React.Fragment>
   );
 }
 
 Row.propTypes = {
-  row: PropTypes.shape({
-    school_name: PropTypes.string.isRequired,
-    school_type: PropTypes.string.isRequired,
-    school_email: PropTypes.string.isRequired,
-    students: PropTypes.arrayOf(PropTypes.shape({ first_name: PropTypes.string.isRequired })),
-  }).isRequired,
+    row: PropTypes.shape({
+        school_name: PropTypes.string.isRequired,
+        school_type: PropTypes.string.isRequired,
+        school_email: PropTypes.string.isRequired,
+        students: PropTypes.shape({
+          All: PropTypes.arrayOf(
+            PropTypes.shape({
+              id: PropTypes.number,
+              symbol_number: PropTypes.string,
+              imagePath: PropTypes.string,
+            })
+          ),
+          Passed: PropTypes.arrayOf(
+            PropTypes.shape({
+                id: PropTypes.number,
+                symbol_number: PropTypes.string,
+                imagePath: PropTypes.string,
+              })
+          ),
+          Failed: PropTypes.arrayOf(
+            PropTypes.shape({
+                id: PropTypes.number,
+                symbol_number: PropTypes.string,
+                imagePath: PropTypes.string,
+              })
+          ),
+          OnHold: PropTypes.arrayOf(
+            PropTypes.shape({
+                id: PropTypes.number,
+                symbol_number: PropTypes.string,
+                imagePath: PropTypes.string,
+              })
+          ),
+        }).isRequired,
+      }).isRequired
+
 };
 
 export default function Schools(props) {
