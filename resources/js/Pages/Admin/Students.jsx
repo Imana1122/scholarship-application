@@ -75,7 +75,7 @@ export default function Students(props){
                   <Tab.Panel
                     key={idx}
                     className=
-                      'rounded-xl bg-white p-3 overflow-x-auto max-w-full ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2'
+                      'rounded-xl text-sm bg-white p-3 overflow-x-auto max-w-full ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2'
 
                   >
                     {/* Table to display students */}

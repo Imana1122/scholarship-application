@@ -128,7 +128,7 @@ export const AdminLayoutComponent = ({ title,currentUser, buttons = "", children
             <Header logout={logout} currentUser={currentUser} onSidebarToggle={handleSidebarToggle} />
 
               {/* Children container with fixed width and height */}
-              <div className="min-h-0 mt-5 w-screen h-full overflow-auto md:w-[112rem] flex flex-col space-y-3 pt-6 px-2">
+              <div className="min-h-0 mt-5 w-screen h-full md:w-[65rem] flex flex-col space-y-3 pt-6 px-2">
                 <header className="bg-white shadow header">
                   <div className="flex mx-auto justify-between items-center w-full ">
                     {/* Title */}
@@ -142,7 +142,7 @@ export const AdminLayoutComponent = ({ title,currentUser, buttons = "", children
                 </header>
                 <Toaster/>
                 {/* Outlet to render child routes */}
-                <div>{children}</div>
+                <div className='overflow-auto'>{children}</div>
 
               </div>
             </div>

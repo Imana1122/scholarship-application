@@ -167,6 +167,7 @@ Route::middleware(['auth:user'])->group(function () {
 
     // Search Routes
     Route::get('/user/search-students/{id}', 'App\Http\Controllers\SearchController@searchStudentsForAdmin')->name('admin.search-students');
+    Route::get('/user/search-schools/{id}', 'App\Http\Controllers\SearchController@searchSchools')->name('admin.search-schools');
     Route::get('/user/search-notices/{id}', 'App\Http\Controllers\SearchController@searchNotices')->name('admin.search-notices');
     Route::get('/user/search-users/{id}', 'App\Http\Controllers\SearchController@searchUsers')->name('admin.search-users');
     Route::get('/user/search-members/{id}', 'App\Http\Controllers\SearchController@searchMembers')->name('admin.search-members');

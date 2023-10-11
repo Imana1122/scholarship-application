@@ -8,25 +8,22 @@ import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-import { EffectCoverflow, Pagination, Navigation } from 'swiper/modules';
-
+import 'swiper/css/keyboard';
+import 'swiper/css/mousewheel';
+import 'swiper/css/virtual';
+import { EffectCoverflow, Mousewheel,Keyboard,Virtual} from 'swiper/modules';
+import './About.css'
 
 export default function About(props){
   const {aboutImages, aboutDetails} = props;
 
+
+
   return (
     <UserLayoutComponent>
       <Container className="mt-5">
-      <Transition
-          show={true}
-          enter="transition-opacity duration-300"
-          enterFrom="opacity-0"
-          enterTo="opacity-100"
-          leave="transition-opacity duration-300"
-          leaveFrom="opacity-100"
-          leaveTo="opacity-0"
-        >
-          <Paper elevation={3} className="p-6 rounded-lg shadow-lg mb-5">
+
+          <Paper elevation={3} className="p-6 rounded-lg shadow-lg mb-10 overflow-auto">
             <Grid container spacing={3}>
               {/* Left column for text */}
               <Grid item xs={12} sm={6}>
@@ -53,62 +50,40 @@ export default function About(props){
               </Grid>
               {/* Right column for image list */}
               <Grid item xs={12} sm={6} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' , height:'450px'}}>
-                <div>
+                <div className='container'>
                 <Swiper
-        effect={'coverflow'}
-        grabCursor={true}
-        centeredSlides={true}
-        loop={true}
-        slidesPerView={'auto'}
-        coverflowEffect={{
-          rotate: 0,
-          stretch: 0,
-          depth: 100,
-          modifier: 2.5,
-        }}
-        pagination={{ el: '.swiper-pagination', clickable: true }}
-        navigation={{
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
-          clickable: true,
-        }}
-        modules={[EffectCoverflow, Pagination, Navigation]}
-        className="swiper_container"
-      >
-        {aboutImages.length>0 && aboutImages.map((image,index)=>(
-            <SwiperSlide key={index}>
-                <img src={`/storage/images/${image.image_path}`} alt="about" />
-          </SwiperSlide>
+                effect={'coverflow'}
+                grabCursor={true}
+                centeredSlides={true}
+                loop={true}
+                slidesPerView={'auto'}
+                coverflowEffect={{
+                  rotate: 0,
+                  stretch: 0,
+                  depth: 100,
+                  modifier: 2.5,
+                }}
+                scrollbar={{ draggable: true }}
+                keyboard={{ keyboard:true }}
+                modules={[EffectCoverflow,Mousewheel,Keyboard,Virtual]}
+                className="swiper_container"
+                >
+        {aboutImages.map((image, index) => (
+            <SwiperSlide key={index} virtualIndex={index}>
+                <img src={`/storage/images/${image.image_path}`} className='h-[10rem] w-[10rem]'/>
+            </SwiperSlide>
         ))}
-        <div className="slider-controler">
-          <div className="swiper-button-prev slider-arrow">
-            <ion-icon name="arrow-back-outline"></ion-icon>
-          </div>
-          <div className="swiper-button-next slider-arrow">
-            <ion-icon name="arrow-forward-outline"></ion-icon>
-          </div>
-          <div className="swiper-pagination"></div>
+        </Swiper>
         </div>
-      </Swiper>
-                </div>
               </Grid>
 
 
 
             </Grid>
           </Paper>
-      </Transition>
       <Grid container spacing={3}>
         <Grid item xs={12} sm={6} style={{ maxHeight: '400px', overflowY: 'auto' }}>
-                <Transition
-                show={true}
-                enter="transition-opacity duration-300"
-                enterFrom="opacity-0"
-                enterTo="opacity-100"
-                leave="transition-opacity duration-300"
-                leaveFrom="opacity-100"
-                leaveTo="opacity-0"
-                >
+
                 <Paper elevation={3} className="p-6 rounded-lg shadow-lg" style={{ height: '100%' }}>
                     <Typography variant="h6" gutterBottom>
                     Our Mission
@@ -122,18 +97,9 @@ export default function About(props){
                     {aboutDetails.mission_image_path && <img src={`/storage/images/${aboutDetails.mission_image_path}`} alt="mission"/>}
                     </Typography>
                 </Paper>
-                </Transition>
         </Grid>
         <Grid item xs={12} sm={6} style={{ maxHeight: '400px', overflowY: 'auto' }}>
-                <Transition
-                show={true}
-                enter="transition-opacity duration-300"
-                enterFrom="opacity-0"
-                enterTo="opacity-100"
-                leave="transition-opacity duration-300"
-                leaveFrom="opacity-100"
-                leaveTo="opacity-0"
-                >
+
                 <Paper elevation={3} className="p-6 rounded-lg shadow-lg" style={{ height: '100%' }}>
                     <Typography variant="h6" gutterBottom>
                     Our Team
@@ -144,7 +110,6 @@ export default function About(props){
                     </Typography>
                     <Members members={props.members}/>
                 </Paper>
-                </Transition>
         </Grid>
       </Grid>
 

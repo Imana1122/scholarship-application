@@ -3,12 +3,16 @@ import { Box, IconButton, ImageList, ImageListItem, ImageListItemBar } from "@mu
 import StarBorderIcon from '@mui/icons-material/StarBorder';
 import UserLayoutComponent from "../components/pagelayouts/UserLayoutComponent";
 import { ScholarshipBanner } from "../Components/user/ScholarshipBanner";
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
-import { EffectCoverflow, Pagination, Navigation } from 'swiper/modules';
+import 'swiper/css/keyboard';
+import 'swiper/css/mousewheel';
+import 'swiper/css/virtual';
+import { EffectCoverflow, Mousewheel,Keyboard,Virtual} from 'swiper/modules';
+import './Welcome.css'
 
 export default function Welcome(props) {
   const {images} = props;
@@ -33,13 +37,9 @@ export default function Welcome(props) {
           depth: 100,
           modifier: 2.5,
         }}
-        pagination={{ el: '.swiper-pagination', clickable: true }}
-        navigation={{
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
-          clickable: true,
-        }}
-        modules={[EffectCoverflow, Pagination, Navigation]}
+        scrollbar={{ draggable: true }}
+        keyboard={{ keyboard:true }}
+        modules={[EffectCoverflow,Mousewheel,Keyboard,Virtual]}
         className="swiper_container"
       >
         {  images.length > 0 &&   images.map((image,index)=>(
@@ -48,15 +48,7 @@ export default function Welcome(props) {
           </SwiperSlide>
         ))}
 
-        <div className="slider-controler">
-          <div className="swiper-button-prev slider-arrow">
-            <ion-icon name="arrow-back-outline"></ion-icon>
-          </div>
-          <div className="swiper-button-next slider-arrow">
-            <ion-icon name="arrow-forward-outline"></ion-icon>
-          </div>
-          <div className="swiper-pagination"></div>
-        </div>
+
       </Swiper>
 
         </div>

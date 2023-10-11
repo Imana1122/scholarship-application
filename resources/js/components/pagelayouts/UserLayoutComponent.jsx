@@ -14,7 +14,7 @@ const UserLayoutComponent = ({ title, children }) => {
 
 
   return (
-    <div className='flex flex-col min-h-screen'>
+    <div className='flex flex-col min-h-screen w-screen overflow-hidden'>
       <div className='fixed top-0 left-0 w-full z-10 bg-white h-[69px]'>
         <Header navigation={navigation} />
       </div>

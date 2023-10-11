@@ -30,16 +30,16 @@ export default function StudentsForSchool({students}){
       <div className='md:flex md:justify-center md:items-center '>
 
         {Object.keys(students).length > 0 ? (
-          <div className="block px-1 py-16 sm:px-0 overflow-x-auto">
+          <div className="block px-1 py-16 sm:px-0 w-screen md:max-w-[62rem]" >
             <Tab.Group>
               {/* Tab List */}
-              <Tab.List className="flex flex-col md:flex-row justify-between rounded-xl bg-yellow-700/20 p-1 ">
+              <Tab.List className="flex flex-col md:flex-row justify-between rounded-xl bg-yellow-700/20 p-1 mr-[4rem] md:mr-0">
                 {Object.keys(students).map((student) => (
                   <Tab
                     key={student}
                     className={({ selected }) =>
                       classNames(
-                        'w-screen md:w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-black',
+                        'w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-black',
                         'ring-white ring-opacity-60 ring-offset-2 ring-offset-green-400 focus:outline-none focus:ring-2',
                         selected
                           ? 'bg-white shadow'
@@ -58,15 +58,15 @@ export default function StudentsForSchool({students}){
                   <Tab.Panel
                     key={idx}
                     className=
-                      'rounded-xl bg-white p-3 overflow-x-auto max-w-full ring-white ring-opacity-60 ring-offset-2 ring-offset-green-400 focus:outline-none focus:ring-2'
+                      'rounded-xl mr-[4rem] md:mr-0 bg-white p-3 overflow-x-auto ring-white ring-opacity-60 ring-offset-2 ring-offset-green-400 focus:outline-none focus:ring-2'
 
                   >
                     {/* Table to display students */}
-                    <div  style={{ overflowX: 'auto' }}>
+                    <div >
                     <table className="w-full border border-collapse border-gray-200 rounded-sm" >
                     <thead className="bg-yellow-700/20 text-black">
                         <tr>
-                          <th className="border border-gray-200 p-2">ID</th>
+                          <th className="border border-gray-200 p-2" style={{ whiteSpace: 'nowrap' }}>ID</th>
                           <th className="border border-gray-200 p-2">Symbol_Number</th>
                           <th className="border border-gray-200 p-2">
                             Image
