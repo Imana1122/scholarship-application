@@ -17,7 +17,7 @@ class NoticeFactory extends Factory
     public function definition(): array
     {
         return [
-            'type'=>$this->faker->randomElement(['Information', 'Warning', 'Error']),
+            'type'=>$this->faker->randomElement(['info', 'warning', 'error','success']),
             'content' => $this->faker->sentence,
         ];
     }

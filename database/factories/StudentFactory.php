@@ -18,7 +18,6 @@ class StudentFactory extends Factory
     {
         return [
             'symbol_number' => $this->faker->unique()->randomNumber(5),
-
             'gender' => $this->faker->randomElement(['Male', 'Female','Other']),
             'first_name' => $this->faker->firstName,
             'middle_name' => $this->faker->lastName,
@@ -30,11 +29,11 @@ class StudentFactory extends Factory
                 // Retrieve an existing school ID from the database
                 return \App\Models\School::inRandomOrder()->first()->id;
             },
-            'phone_number' => $this->faker->phoneNumber,
+            'phone_number' => $this->faker->unique()->randomNumber(5),
             'mother_name' => $this->faker->name('female'),
             'father_name' => $this->faker->name('male'),
-            'mother_phone_number' => $this->faker->phoneNumber,
-            'father_phone_number' => $this->faker->phoneNumber
+            'mother_phone_number' => $this->faker->unique()->randomNumber(5),
+            'father_phone_number' => $this->faker->numerify('##########')
         ];
     }
 }

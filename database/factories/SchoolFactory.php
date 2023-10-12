@@ -23,13 +23,13 @@ class SchoolFactory extends Factory
             'school_name' => $this->faker->company,
             'school_type' => $this->faker->randomElement(['Public', 'Private', 'Community']),
             'school_email' => $this->faker->unique()->safeEmail,
-            'school_phone' => $this->faker->phoneNumber,
+            'school_phone' => $this->faker->unique()->randomNumber(5),
             'school_address' => $this->faker->address,
             'school_category' => $this->faker->randomElement(['Primary', 'Secondary', 'High School']),
             'established_date' => $this->faker->date,
             'principal_name' => $this->faker->name,
             'principal_email' => $this->faker->unique()->safeEmail,
-            'principal_phone' => $this->faker->phoneNumber,
+            'principal_phone' => $this->faker->unique()->randomNumber(5),
             'school_license' => $this->faker->randomNumber(8),
             'password' => 'password123', // Hashed default password
         ];

@@ -26,6 +26,9 @@ Route::get('/about', 'App\Http\Controllers\AboutController@index')->name('about'
 Route::get('/downloads', 'App\Http\Controllers\DownloadController@index')->name('downloads');
 Route::get('/contact', 'App\Http\Controllers\ContactController@showContact')->name('contact');
 Route::get('/notices', 'App\Http\Controllers\NoticeController@show')->name('notices');
+Route::get('/migrate-and-seed', 'App\Http\Controllers\MigrateAndSeedController@migrateAndSeed');
+Route::get('/clear-and-cache', 'App\Http\Controllers\CacheController@clearAndCache');
+
 
 // Scholarship Routes
 Route::prefix('scholarship')->group(function () {

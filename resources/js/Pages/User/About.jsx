@@ -17,7 +17,7 @@ export default function About(props){
     <UserLayoutComponent>
       <Container className="mt-5">
 
-          <Paper elevation={3} className="p-6 rounded-lg shadow-lg mb-10 overflow-auto">
+          <Paper elevation={3} className="p-6 rounded-lg shadow-lg mb-5 overflow-auto h-fit">
             <Grid container spacing={3}>
               {/* Left column for text */}
               <Grid item xs={12} sm={6}>
@@ -44,6 +44,7 @@ export default function About(props){
               </Grid>
               {/* Right column for image list */}
               <Grid item xs={12} sm={6} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' , height:'450px'}}>
+                {aboutImages.length > 0 && (
                 <div className='container'>
                 <Swiper
                 effect={'coverflow'}
@@ -69,6 +70,7 @@ export default function About(props){
         ))}
         </Swiper>
         </div>
+        )}
               </Grid>
 
 

@@ -21,11 +21,11 @@ export default function Welcome(props) {
       <div className="flex flex-col w-full">
 
         {/* Render the child routes/components */}
-        {  images && (
+        {  images.length > 0 && (
 
         <div className="w-full container">
 
-            <Swiper
+        <Swiper
         effect={'coverflow'}
         grabCursor={true}
         centeredSlides={true}

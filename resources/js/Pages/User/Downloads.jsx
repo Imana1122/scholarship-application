@@ -47,7 +47,7 @@ export default function Downloads({ files }) {
   return (
     <UserLayoutComponent>
       <div>
-        {files.map((file, index) => (
+        {files.length > 0 ? ( files.map((file, index) => (
           <Card key={index} className="my-4 flex flex-col space-y-3">
             <CardContent>
               {/* Download Description */}
@@ -79,7 +79,11 @@ export default function Downloads({ files }) {
               </div>
             </CardContent>
           </Card>
-        ))}
+        ))):(
+            <Typography variant="h6" gutterBottom >
+                No files available for download
+              </Typography>
+        )}
 
         {/* Modal for displaying PDF */}
         <Modal

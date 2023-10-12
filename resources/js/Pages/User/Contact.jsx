@@ -55,7 +55,7 @@ export default function Contact(props) {
     <UserLayoutComponent activeRoute={props.activeRoute}>
       <Box
         className="bg-[#1d043f] w-screen h-auto md:h-screen"
-        py={10}
+        py={5}
         px={2}
       >
         <Container maxWidth="lg">

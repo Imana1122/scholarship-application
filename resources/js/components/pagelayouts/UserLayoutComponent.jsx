@@ -19,7 +19,7 @@ const UserLayoutComponent = ({ title, children }) => {
         <Header navigation={navigation} />
       </div>
 
-      <div className='flex flex-1 flex-col justify-start items-start w-full mx-auto sm:px-4 lg:px-4 mt-[69px]'>
+      <div className='flex flex-1 flex-col justify-start items-start w-full mx-auto sm:px-4 lg:px-4 mt-[90px]'>
         {/* Title of the user layout */}
         <h2 className='font-bold text-xl text-purple-800 leading-tight font-serif'>{title}</h2>
 

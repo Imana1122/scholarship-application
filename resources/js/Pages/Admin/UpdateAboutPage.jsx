@@ -20,7 +20,9 @@ export default function UpdateAboutPage(props) {
 
 
   useEffect(()=>{
-    setData(props.details)
+    if(props.details){
+        setData(props.details)
+    }
   },[props.details])
 
   useEffect(()=>{

@@ -75,7 +75,10 @@ class SearchController extends Controller
         public function searchStudents($id)
         {
             $school = Auth::guard('school')->user();
-            $student = $school->students->where('symbol_number',$id)->values()->all();
+            $student = $school->students->filter(function ($student) use ($id) {
+                return $student->symbol_number == $id || $student->id == $id;
+            })->values()->all();
+
 
             return response()->json(['Student'=>$student]); // Replace with your response format
         }
@@ -84,7 +87,10 @@ class SearchController extends Controller
         {
             $school = Auth::guard('school')->user();
             $students=Student::all();
-            $student = $students->where('symbol_number',$id)->values()->all();
+            $student = $students->filter(function ($student) use ($id) {
+                return $student->symbol_number == $id || $student->id == $id;
+            })->values()->all();
+
 
             return response()->json(['Student'=>$student]); // Replace with your response format
         }

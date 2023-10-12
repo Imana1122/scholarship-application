@@ -18,13 +18,15 @@ class UsersTableSeeder extends Seeder
         // Insert sample data into the 'users' table
        User::create([
             'id' => 1, // Set a specific primary key value (e.g., 1)
-            'name' => 'Imana',
-            'phone_number' => '9815335034',
-            'password' => 'Imana@123',
+            'name' => 'Itahari',
+            'phone_number' => '9810490922',
+            'password' => 'Hello@123',
             'role_id'=> 2,
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+
+        User::factory(3)->create();
 
 
     }
