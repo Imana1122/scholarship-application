@@ -61,14 +61,14 @@ class AboutController extends Controller
                 'about_description1'=> $data['about_description1'],
                 'about_description2'=> $data['about_description2'],
                 'mission_image_path'=> $data['mission_image_path'],
-                'mission_description'=> $data['about_description1'],
+                'mission_description'=> $data['mission_description'],
             ]);
         }else{
             $new_about=About::create([
                 'about_description1'=> $data['about_description1'],
                 'about_description2'=> $data['about_description2'],
                 'mission_image_path'=> $data['mission_image_path'],
-                'mission_description'=> $data['about_description1'],
+                'mission_description'=> $data['mission_description'],
             ]);
         }
 

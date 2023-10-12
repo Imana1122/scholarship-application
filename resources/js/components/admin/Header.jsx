@@ -25,7 +25,7 @@ export const Header = ({ logout, currentUser, onSidebarToggle }) => {
   };
 
   return (
-    <div className='bg-white h-[64px]  mt-5 px-4 flex flex-row items-center border-1 border-gray-200 justify-between w-screen md:w-full '>
+    <div className='bg-white h-[64px]  mt-5 px-4 flex flex-row items-center border-1 border-gray-200 justify-between w-screen md:w-full'>
       <div className='flex space-x-3 items-center md:hidden'>
         {/* Sidebar Toggle Button */}
         <button

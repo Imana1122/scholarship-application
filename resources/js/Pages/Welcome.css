@@ -1,4 +1,4 @@
-.container{
+  .container{
     font-size: 62.5%;
     scroll-behavior: smooth;
   }
@@ -50,36 +50,35 @@
     margin: 0 auto;
   }
 
-  .container > .swiper_container {
-    height: 42rem;
-    padding: 2rem 0;
+  .swiper_container {
+    height: 24rem;
     position: relative;
   }
 
-  .container > .swiper-slide {
-    width: 27rem;
-    height: 32rem;
+  .swiper-slide {
+    width: 20rem ;
+    height: 22rem ;
     position: relative;
   }
 
   @media (max-width: 500px) {
     .swiper_container {
-      height: 37rem;
+      height: 17rem;
     }
     .swiper-slide {
-      width: 18rem  ;
-      height: 26rem  ;
+      width: 11rem !important;
+      height: 15rem !important;
     }
     .swiper-slide img {
-      width: 18rem  ;
-      height: 26rem  ;
+      width: 11rem !important;
+      height: 15rem  !important;
     }
   }
 
-  .container > .swiper-slide img {
-    width: 27rem;
-    height: 32rem;
-    border-radius: 2rem;
+  .swiper-slide img {
+    width: 20rem ;
+    height: 22rem ;
     object-fit: cover;
+    cursor:pointer;
   }
 

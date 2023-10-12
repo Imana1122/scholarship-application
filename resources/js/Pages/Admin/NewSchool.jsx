@@ -1,11 +1,10 @@
-import { useEffect, useState } from 'react';
 import React from 'react';
 import { AdminLayoutComponent } from '../../components/pagelayouts/AdminLayoutComponent';
-import { Toaster, toast } from 'react-hot-toast';
 import { useForm } from '@inertiajs/react';
 import { Button, FormControl, Grid, InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material';
 import { inputCss } from '../../components/css-components/text-field';
 import { schoolCategory, schoolTypes } from '../../components/admin/const/schoolData';
+import { LargeImageInput } from '../../components/LargeImageInput';
 
 export default function NewSchool(props) {
   const { data, setData, post, errors,processing } = useForm({
@@ -21,6 +20,7 @@ export default function NewSchool(props) {
     principal_phone: '',
     school_license_file:null,
     password: '',
+    school_license: '',
     password_confirmation: '',
   });
 
@@ -43,14 +43,6 @@ export default function NewSchool(props) {
     setData((prev) => ({
       ...prev,
       [field]: value,
-    }));
-  };
-
-  const handleFileChange = async (e) => {
-
-    setData((prevData) => ({
-        ...prevData,
-        school_license_file: e.target.files[0],
     }));
   };
 
@@ -236,20 +228,7 @@ export default function NewSchool(props) {
             </Typography>
           </Grid>
           <Grid item xs={12} md={12}>
-            <TextField
-              id="school_license_file"
-              name="school_license_file"
-              label="School License"
-              variant="outlined"
-              type="file"
-              required
-              InputLabelProps={{ shrink: true }}
-              error={!!errors.school_license_file}
-              helperText={errors.school_license_file || ''}
-              onChange={handleFileChange}
-              fullWidth
-              sx={inputCss}
-            />
+          <LargeImageInput error={errors.school_license_file} imagePath={data.school_license} setData={setData} image='school_license_file'/>
           </Grid>
           <Grid item xs={12}>
             <Typography variant="h6" gutterBottom>

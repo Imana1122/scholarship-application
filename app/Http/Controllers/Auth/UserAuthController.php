@@ -15,20 +15,21 @@ class UserAuthController extends Controller
     }
 
     public function login(UserLoginRequest $request)
-    {
-        $credentials = $request->only('phone_number', 'password');
-        $remember = $request->has('remember_me');
+{
+    $credentials = $request->only('phone_number', 'password');
+    $remember = $request->has('remember_me');
 
-        if (Auth::guard('user')->attempt($credentials, $remember)) {
+    if (Auth::guard('user')->attempt($credentials, $remember)) {
+        // Authenticate the school user and set the session variable
+        $user = Auth::guard('user')->user();
+        session(['user_id' => $user->id]);
 
-
-            return redirect('/user/dashboard'); // Redirect to the school user dashboard
-        }
-         else {
-            // Authentication failed...
-            return back()->withErrors(['password' => 'Incorrect password'])->withInput();
-        }
+        return redirect('/user/dashboard'); // Redirect to the school user dashboard
+    } else {
+        // Authentication failed...
+        return back()->withErrors(['password' => 'Incorrect password'])->withInput();
     }
+}
 
     public function logout(Request $request)
     {

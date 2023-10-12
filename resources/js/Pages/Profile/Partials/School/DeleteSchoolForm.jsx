@@ -31,7 +31,7 @@ export default function DeleteSchoolForm({ className = "" }) {
         toast.success("Account deleted successfully");
         // You can perform any other actions upon successful deletion
         setConfirmingUserDeletion(false); // Close the modal or redirect the user
-        router.visit('/school/profile');
+        router.visit('/auth/login-choose/user');
       }
     } catch (err) {
       if (err.response && err.response.status === 422) {

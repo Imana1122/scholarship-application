@@ -16,7 +16,7 @@ const ResetPassword = (props) => {
   const submit = (e) => {
     e.preventDefault();
 
-    put('/user/reset-password');
+    put('/password-reset/user/reset-password');
   }
 
   return (

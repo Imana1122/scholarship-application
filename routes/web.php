@@ -31,7 +31,8 @@ Route::get('/notices', 'App\Http\Controllers\NoticeController@show')->name('noti
 Route::prefix('scholarship')->group(function () {
     Route::get('/result/{id}', 'App\Http\Controllers\StudentScholarshipController@showResult')->name('scholarship.result');
     Route::get('/result', 'App\Http\Controllers\StudentScholarshipController@checkResult')->name('scholarship.result.check');
-    Route::get('/apply', 'App\Http\Controllers\StudentScholarshipController@showScholarshipApplicationForm')->name('scholarship.apply');
+    Route::get('/apply', 'App\Http\Controllers\StudentScholarshipController@showScholarshipApplicationForm')->name('scholarship.apply-form');
+    Route::post('/apply/{id}', 'App\Http\Controllers\StudentScholarshipController@applyForScholarship')->name('scholarship.apply');
     Route::get('/admit-card/request-form', 'App\Http\Controllers\AdmitCardController@giveAdmitCardRequestForm')->name('scholarship.admit-card.request-form');
     Route::get('/admit-card/{id}', 'App\Http\Controllers\AdmitCardController@showAdmitCard')->name('scholarship.admit-card');
 });

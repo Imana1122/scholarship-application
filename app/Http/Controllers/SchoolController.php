@@ -9,7 +9,9 @@ use App\Http\Requests\SchoolUpdateRequest;
 use App\Models\School;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
@@ -141,9 +143,8 @@ class SchoolController extends Controller
 
     public function delete(Request $request, $id)
     {
-        // Fetch the student using the provided $id
+        // Fetch the school using the provided $id
         $school = School::findOrFail($id);
-
 
         if (!$school) {
             // Return a response with a 404 Not Found status code
@@ -156,20 +157,28 @@ class SchoolController extends Controller
             Storage::delete('public/images/' . $filePath);
         }
 
-        // Revoke the user's session tokens to log them out
-        $school->tokens->each(function ($token, $key) {
-            $token->revoke();
-        });
+        // Delete the associated students
+        if ($school->students) {
+            $school->students->each(function ($student) {
+                // Delete the student's image from storage
+                if ($student->image && Storage::exists('public/images/' . $student->imagePath)) {
+                    Storage::delete('public/images/' . $student->imagePath);
+                }
+                $student->delete();
+            });
+        }
+
+
 
         if ($school->delete()) {
             // Return a response with a 200 OK status code and success message
             return response()->json(['message' => 'School deleted successfully.'], 200);
         } else {
             // Return a response with a 500 Internal Server Error status code and error message
-            return response()->json(['error'
-            => 'Failed to delete school.'], 500);
+            return response()->json(['error' => 'Failed to delete school.'], 500);
         }
     }
+
 
     public function updateProfile(SchoolProfileRequest $request){
         // Get the authenticated user
@@ -335,6 +344,18 @@ class SchoolController extends Controller
         if ($filePath && Storage::exists('public/images/' . $filePath)) {
             Storage::delete('public/images/' . $filePath);
         }
+
+        // Delete the associated students
+        if ($school->students){
+            $school->students->each(function ($student) {
+                // Delete the student's image from storage
+                if ($student->image && Storage::exists('public/images/' . $student->imagePath)) {
+                    Storage::delete('public/images/' . $student->imagePath);
+                }
+                $student->delete();
+            });
+        }
+
 
         // Clear the user's session and logout
         Auth::guard('school')->logout();

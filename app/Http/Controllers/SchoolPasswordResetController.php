@@ -76,7 +76,7 @@ class SchoolPasswordResetController extends Controller
                 }
 
                 // Redirect to another URL with a success message
-                return redirect("/School/verify-token-form/$school_phone");
+                return redirect("/password-reset/school/verify-token-form/$school_phone");
             } else {
                 // Redirect back with an error message
                 return back()->with('error', 'Failed to send verification token');
@@ -167,6 +167,6 @@ class SchoolPasswordResetController extends Controller
         // Mark the verification record as used
         $verificationRecord->update(['verification_status' => false]);
 
-        return redirect('/School-login-form');
+        return redirect('/auth/school-login-form');
     }
 }

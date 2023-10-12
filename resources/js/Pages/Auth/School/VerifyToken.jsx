@@ -55,7 +55,7 @@ export default function VerifyToken(props) {
     setProcessing(true); // Start processing
 
     axios
-      .put("/school/verify-token", {
+      .put("/password-reset/school/verify-token", {
         school_phone:props.school_phone,
         verification_token: data.verification_token,
       })
@@ -63,7 +63,7 @@ export default function VerifyToken(props) {
         console.log(data)
         if (data.message) {
           setSuccessMessage(data.message);
-          router.visit(`/school/reset-password-form/${props.school_phone}`);
+          router.visit(`/password-reset/school/reset-password-form/${props.school_phone}`);
         }
       })
       .catch((error) => {
@@ -89,7 +89,7 @@ export default function VerifyToken(props) {
     setResetProcessing(true);
 
     axios
-      .post("/school/send-token", { school_phone:props.school_phone }).finally(()=>{setResetProcessing(false)})
+      .post("/password-reset/school/send-token", { school_phone:props.school_phone }).finally(()=>{setResetProcessing(false)})
 
   };
 

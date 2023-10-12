@@ -166,7 +166,7 @@ export default function Schools(props) {
       .then((response) => {
         if (response.data.message) {
           // Deletion was successful
-          toast.success('Student Deleted Successfully.');
+          toast.success('School Deleted Successfully.');
           setIsModalOpen(false)
           router.visit('/user/schools')
         } else {
@@ -238,7 +238,7 @@ export default function Schools(props) {
 
         {/** Modal for photo */}
         <Modal show={isImageModalOpen} onClose={() => setIsImageModalOpen(false)}>
-            <img src={imageUrl} alt="Image" className='w-full h-[600px] rounded-md '/>
+            <img src={imageUrl} alt="Image" className='w-full rounded-md '/>
         </Modal>
 
 

@@ -150,7 +150,7 @@ export default function BackgroundImages(props){
          {/** Modal for photo */}
          <Modal show={isImageModalOpen} onClose={() => setIsImageModalOpen(false)}>
             <div>
-            <img src={imageUrl} alt="Image" className='w-full h-[600px] rounded-md '/>
+            <img src={imageUrl} alt="Image" className='w-full rounded-md '/>
             </div>
         </Modal>
 

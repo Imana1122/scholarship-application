@@ -5,14 +5,8 @@ import UserLayoutComponent from '../../components/pagelayouts/UserLayoutComponen
 import Members from './Members';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
-import 'swiper/css/effect-coverflow';
-import 'swiper/css/pagination';
-import 'swiper/css/navigation';
-import 'swiper/css/keyboard';
-import 'swiper/css/mousewheel';
-import 'swiper/css/virtual';
+import 'swiper/css/bundle';
 import { EffectCoverflow, Mousewheel,Keyboard,Virtual} from 'swiper/modules';
-import './About.css'
 
 export default function About(props){
   const {aboutImages, aboutDetails} = props;
@@ -82,9 +76,9 @@ export default function About(props){
             </Grid>
           </Paper>
       <Grid container spacing={3}>
-        <Grid item xs={12} sm={6} style={{ maxHeight: '400px', overflowY: 'auto' }}>
+        <Grid item xs={12} sm={6} style={{ maxHeight: '400px' }}>
 
-                <Paper elevation={3} className="p-6 rounded-lg shadow-lg" style={{ height: '100%' }}>
+                <Paper elevation={3} className="p-6 rounded-lg shadow-lg" style={{ height: '100%', overflowY: 'auto' }}>
                     <Typography variant="h6" gutterBottom>
                     Our Mission
                     </Typography>
@@ -98,9 +92,9 @@ export default function About(props){
                     </Typography>
                 </Paper>
         </Grid>
-        <Grid item xs={12} sm={6} style={{ maxHeight: '400px', overflowY: 'auto' }}>
+        <Grid item xs={12} sm={6} style={{ maxHeight: '400px' }}>
 
-                <Paper elevation={3} className="p-6 rounded-lg shadow-lg" style={{ height: '100%' }}>
+                <Paper elevation={3} className="p-6 rounded-lg shadow-lg" style={{ height: '100%', overflowY: 'auto' }}>
                     <Typography variant="h6" gutterBottom>
                     Our Team
                     </Typography>

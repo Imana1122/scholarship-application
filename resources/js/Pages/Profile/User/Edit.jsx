@@ -1,7 +1,7 @@
 // Importing required modules
 
-import { SchoolLayoutComponent } from "../../../components/pagelayouts/SchoolLayoutComponent";
-import { DeleteUserForm } from "../Partials/User/DeleteUserForm";
+import { AdminLayoutComponent } from "../../../components/pagelayouts/AdminLayoutComponent";
+import DeleteUserForm from "../Partials/User/DeleteUserForm";
 import { UpdateUserPasswordForm } from "../Partials/User/UpdateUserPasswordForm";
 import { UpdateUserProfileInformation } from "../Partials/User/UpdateUserProfileInformationForm";
 
@@ -9,7 +9,7 @@ import { UpdateUserProfileInformation } from "../Partials/User/UpdateUserProfile
 export default function Edit(props) {
     return (
         // Wrap the content in the UserLayoutComponent with a title
-        <SchoolLayoutComponent title={'Edit your Profile'} currentUser={props.currentUser}>
+        <AdminLayoutComponent title={'Edit your Profile'} currentUser={props.currentUser}>
             <div>
                 {/* Update Profile Information Form */}
                 <div className="p-4 sm:p-8 bg-white shadow sm:rounded-lg">
@@ -30,6 +30,6 @@ export default function Edit(props) {
                 </div>
                 )}
             </div>
-        </SchoolLayoutComponent>
+        </AdminLayoutComponent>
     );
 }

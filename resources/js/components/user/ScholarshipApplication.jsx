@@ -25,7 +25,7 @@ export const ScholarshipApplication = () => {
 
   return (
     <>
-      <div className="w-full p-5">
+      <div className="w-full">
         <form className="flex flex-col space-y-7" onSubmit={onSubmit}>
           {/* Symbol Number */}
           <div>

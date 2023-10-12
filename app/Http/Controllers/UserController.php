@@ -8,7 +8,11 @@ use App\Http\Requests\UserUpdateRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Inertia\Inertia;
 
@@ -247,47 +251,32 @@ class UserController extends Controller
             return response()->json(['error' => 'Failed to delete user.'], 500);
         }
     }
-
     public function delete(Request $request, $id)
     {
+        // Check if the current user is superadmin (role_id = 2) or has some other appropriate role
+        if (auth()->user()->role_id === 2) {
+            $user = User::find($id);
 
-            $currentUser = Auth::guard('user')->user();
-
-            // Check if the current user is superadmin (role_id = 2) or has some other appropriate role
-            if ($currentUser->role_id === 2) {
-                // Current user has the necessary privileges to perform the update
-                $user = User::findOrFail($id);
-
-                if (!$user) {
-                    // Return a response with a 404 Not Found status code
-                    return response()->json(['error' => 'User with ID ' . $id . ' not found.'], 404);
-                }
-
-                // Check if the user has the role ID that you want to protect (e.g., role ID 2 for superadmins)
-                if ($user->role_id === 2) {
-                    // Return a response with a 403 Forbidden status code and a message indicating that deletion is not allowed
-                    return response()->json(['error' => 'Deletion of superadmin user is not allowed.'], 403);
-                }
-
-                // Revoke the user's session tokens to log them out
-                $user->tokens->each(function ($token, $key) {
-                    $token->revoke();
-                });
-
-                if ($user->delete()) {
-                    // Return a response with a 200 OK status code and success message
-                    return response()->json(['message' => 'User deleted successfully.'], 200);
-                } else {
-                    // Return a response with a 500 Internal Server Error status code and error message
-                    return response()->json(['error' => 'Failed to delete user.'], 500);
-                }
-
-
-            } else {
-                // Current user does not have the necessary privileges
-                return response()->json(['error' => 'You do not have permission to delete user.'], 403);
+            if (!$user) {
+                return response()->json(['error' => 'User with ID ' . $id . ' not found.'], 404);
             }
+
+            // Check if the user has the role ID that you want to protect (e.g., role ID 2 for superadmins)
+            if ($user->role_id === 2) {
+                return response()->json(['error' => 'Deletion of superadmin user is not allowed.'], 403);
+            }
+
+
+            if ($user->delete()) {
+                return response()->json(['message' => 'User deleted successfully.'], 200);
+            } else {
+                return response()->json(['error' => 'Failed to delete user.'], 500);
+            }
+        } else {
+            return response()->json(['error' => 'You do not have permission to delete user.'], 403);
         }
+    }
+
 
 
 }

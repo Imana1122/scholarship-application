@@ -80,7 +80,7 @@ function Login() {
 
           <div className="text-sm flex justify-end">
             <Link
-              href="/user/send-token-form"
+              href="/password-reset/user/send-token-form"
               className="font-semibold text-indigo-600 hover:text-indigo-500"
             >
               Forgot password?

@@ -76,7 +76,7 @@ class UserPasswordResetController extends Controller
                 }
 
                 // Redirect to another URL with a success message
-                return redirect("/user/verify-token-form/$phone_number");
+                return redirect("/password-reset/user/verify-token-form/$phone_number");
             } else {
                 // Redirect back with an error message
                 return back()->with('error', 'Failed to send verification token');
@@ -167,6 +167,6 @@ class UserPasswordResetController extends Controller
         // Mark the verification record as used
         $verificationRecord->update(['verification_status' => false]);
 
-        return redirect('/user-login-form');
+        return redirect('/auth/user-login-form');
     }
 }

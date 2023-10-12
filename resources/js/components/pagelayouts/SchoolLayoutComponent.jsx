@@ -25,7 +25,7 @@ export const SchoolLayoutComponent = ({ title,currentUser, buttons = "", childre
     const logout=()=>{
         axios.post('/school/logout').then(()=>{
             toast.success('Logged out successfully')
-            router.visit('/login-choose-user')
+            router.visit('/auth/login-choose-user')
         })
     }
 

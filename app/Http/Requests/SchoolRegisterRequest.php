@@ -28,7 +28,7 @@ class SchoolRegisterRequest extends FormRequest
             'school_phone' => 'required|numeric|unique:schools,school_phone',
             'school_address' => 'required|string',
             'school_category' => 'required|string|in:Public,Private,Community',
-            'established_date' => 'required|date',
+            'established_date' => ['required', 'date', 'before:today - 1 year'],
             'principal_name' => 'required|string|max:255',
             'principal_email' => 'required|string|email',
             'principal_phone' => 'required|numeric',

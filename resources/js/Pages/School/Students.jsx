@@ -6,7 +6,7 @@ import { CiWarning } from "react-icons/ci";
 import { useStateContext } from "../../contents/ContextProvider";
 import { SchoolLayoutComponent } from "../../components/pagelayouts/SchoolLayoutComponent";
 import TButton from "../../components/TButton";
-import { Link } from "@inertiajs/react";
+import { Link, router } from "@inertiajs/react";
 import { highlightSearchQuery } from "../../utility/HighlightText";
 import Modal from "../../components/Modal";
 import toast from "react-hot-toast";
@@ -48,6 +48,7 @@ export default function Students (props) {
           // Handle other response statuses if needed
           toast.error('Failed to delete student.');
         }
+
       })
       .catch((error) => {
         if (error.response) {
@@ -60,7 +61,10 @@ export default function Students (props) {
           // Something happened in setting up the request that triggered an error
           toast.error(`Error: ${error.message}`);
         }
-      });
+      }).finally(()=>{
+        setIsModalOpen(false)
+        router.visit('/school/students')
+      })
     }
 
 
@@ -215,7 +219,7 @@ export default function Students (props) {
 
             {/** Modal for photo */}
             <Modal show={isImageModalOpen} onClose={() => setIsImageModalOpen(false)}>
-                <img src={imageUrl} alt="Image" className='w-full h-[600px] rounded-md '/>
+                <img src={imageUrl} alt="Image" className='w-full h-[500px] rounded-md '/>
             </Modal>
 
 

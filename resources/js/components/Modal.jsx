@@ -3,7 +3,7 @@ import { Dialog, Transition } from '@headlessui/react';
 import { Button } from '@mui/material';
 import PropTypes from 'prop-types';
 
-function Modal({ children, show = false, maxWidth = '2xl', closeable = true, onClose = () => {} }) {
+function Modal({ children, show = false, maxWidth = 'sm', closeable = true, onClose = () => {} }) {
   const close = () => {
     if (closeable) {
       onClose();
@@ -52,7 +52,7 @@ function Modal({ children, show = false, maxWidth = '2xl', closeable = true, onC
           >
             {/* Add a focusable button for closing the modal */}
             <div className='flex justify-end py-3'>
-            <Button className="focus:outline-none" onClick={close} variant='contained' color='error'>
+            <Button className="focus:outline-none" onClick={close} variant='outlined' color='error'>
               Close
             </Button>
             </div>

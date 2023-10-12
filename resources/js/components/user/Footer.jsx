@@ -17,31 +17,31 @@ const Footer = () => {
 
               {/* Policies column */}
               <div className="text-left">
-                <h3 className="text-md mb-3 text-gray-800">POLICIES</h3>
+                <h4 className="text-lg mb-3 text-gray-800">POLICIES</h4>
                 <ul className="list-none">
-                  <li className="mb-1 text-gray-600">Privacy Policy</li>
-                  <li className="mb-1 text-gray-600">Terms and Conditions</li>
-                  <li className="mb-1 text-gray-600">Refund Policy</li>
+                  <li className="mb-1 text-sm text-gray-600">Privacy Policy</li>
+                  <li className="mb-1 text-sm text-gray-600">Terms and Conditions</li>
+                  <li className="mb-1 text-sm text-gray-600">Refund Policy</li>
                 </ul>
               </div>
 
               {/* General column */}
               <div className="text-left">
-                <h3 className="text-md mb-3 text-gray-800">GENERAL</h3>
+                <h4 className="text-lg mb-3 text-gray-800">GENERAL</h4>
                 <ul className="list-none">
-                  <li className="mb-1 text-gray-600">FAQ</li>
-                  <li className="mb-1 text-gray-600">Our Team</li>
-                  <li className="mb-1 text-gray-600">USER GUIDE</li>
+                  <li className="mb-1 text-sm text-gray-600">FAQ</li>
+                  <li className="mb-1 text-sm text-gray-600">Our Team</li>
+                  <li className="mb-1 text-sm text-gray-600">USER GUIDE</li>
                 </ul>
               </div>
 
               {/* Company column */}
               <div className="text-left">
-                <h3 className="text-md mb-3 text-gray-800">COMPANY</h3>
+                <h4 className="text-lg mb-3 text-gray-800">COMPANY</h4>
                 <ul className="list-none">
-                  <li className="mb-1 text-gray-600">About Us</li>
-                  <li className="mb-1 text-gray-600">Career</li>
-                  <li className="mb-1 text-gray-600">Blog</li>
+                  <li className="mb-1 text-sm text-gray-600">About Us</li>
+                  <li className="mb-1 text-sm text-gray-600">Career</li>
+                  <li className="mb-1 text-sm text-gray-600">Blog</li>
                 </ul>
               </div>
             </div>
@@ -71,21 +71,21 @@ const Footer = () => {
             <div className='flex justify-start items-center space-x-5'>
               {/* Policies column */}
               <div className="text-left">
-                <h3 className="text-md mb-3 text-gray-800">POLICIES</h3>
+                <h4 className="text-lg mb-3 text-gray-800">POLICIES</h4>
                 <ul className="list-none">
-                  <li className="mb-1 text-gray-600">Privacy Policy</li>
-                  <li className="mb-1 text-gray-600">Terms and Conditions</li>
-                  <li className="mb-1 text-gray-600">Refund Policy</li>
+                  <li className="mb-1 text-sm text-gray-600">Privacy Policy</li>
+                  <li className="mb-1 text-sm text-gray-600">Terms and Conditions</li>
+                  <li className="mb-1 text-sm text-gray-600">Refund Policy</li>
                 </ul>
               </div>
 
               {/* General column */}
               <div className="text-left">
-                <h3 className="text-md mb-3 text-gray-800">GENERAL</h3>
+                <h4 className="text-lg mb-3 text-gray-800">GENERAL</h4>
                 <ul className="list-none">
-                  <li className="mb-1 text-gray-600">FAQ</li>
-                  <li className="mb-1 text-gray-600">Our Team</li>
-                  <li className="mb-1 text-gray-600">USER GUIDE</li>
+                  <li className="mb-1 text-sm text-gray-600">FAQ</li>
+                  <li className="mb-1 text-sm text-gray-600">Our Team</li>
+                  <li className="mb-1 text-sm text-gray-600">USER GUIDE</li>
                 </ul>
               </div>
 

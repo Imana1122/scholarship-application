@@ -12,7 +12,7 @@ export const Sidebar = ({ logout, DASHBOARD_SIDEBAR_LINKS, handleSidebarToggle }
     const linkClasses = `flex items-center gap-2 font-light px-3 py-2 hover:bg-blue-700 hover:no-underline active:bg-blue-600 rounded-sm text-base`;
 
     return (
-        <div className='bg-neutral-900 w-60 h-screen p-3 flex flex-col text-white'>
+        <div className='bg-neutral-900 w-60 h-full p-3 flex flex-col text-white'>
           <div className='w-full flex justify-end '>
             <TfiArrowCircleLeft onClick={handleSidebarToggle} className=' rounded-full text-white text-2xl cursor-pointer md:hidden'/>
           </div>

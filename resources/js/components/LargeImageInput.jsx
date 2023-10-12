@@ -5,7 +5,7 @@ import { ImageToBase64 } from '../utility/ImageToBase64';
 import { HiPhotograph } from 'react-icons/hi';
 
 
-export const LargeImageInput = ({ setData, imagePath, error })=> {
+export const LargeImageInput = ({ setData, imagePath, error, image='school_license_file' })=> {
   const [imagePreview, setImagePreview] = useState('');
 
   const handleImageChange = async (e) => {
@@ -16,7 +16,7 @@ export const LargeImageInput = ({ setData, imagePath, error })=> {
     // Pass the base64 image to the parent component
     setData((prevData) => ({
         ...prevData,
-        school_license_file: e.target.files[0],
+        [image]: e.target.files[0],
     }));
   };
 

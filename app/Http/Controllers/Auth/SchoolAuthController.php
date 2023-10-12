@@ -29,8 +29,9 @@ class SchoolAuthController extends Controller
         $remember = $request->has('remember_me');
 
         if (Auth::guard('school')->attempt($credentials, $remember)) {
-
-
+            // Authenticate the school user and set the session variable
+            $school = Auth::guard('school')->user();
+            session(['school_id' => $school->id]);
             return redirect('/school/dashboard'); // Redirect to the school user dashboard
         }
          else {

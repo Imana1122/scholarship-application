@@ -5,7 +5,7 @@ import { ImageToBase64 } from '../utility/ImageToBase64';
 import { HiPhotograph } from 'react-icons/hi';
 
 
-function ImageInput({ setData, imagePath, error }) {
+function ImageInput({ setData, imagePath, error, image='image' }) {
   const [imagePreview, setImagePreview] = useState('');
 
   const handleImageChange = async (e) => {

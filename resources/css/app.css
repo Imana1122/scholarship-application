@@ -1,45 +1,40 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+  @tailwind base;
+  @tailwind components;
+  @tailwind utilities;
 
-
-
-html {
+  html {
     scroll-behavior: smooth;
   }
 
-:root {
+  :root {
     --primary: #6a59ff;
     --white: #ffffff;
     --bg: #f5f5f5;
   }
 
-
-html {
+  html {
     font-size: 100%;
     zoom: 1;
-}
+  }
 
-
-
-
-
-/* Hide both vertical and horizontal scrollbars */
-::-webkit-scrollbar {
+  /* Hide both vertical and horizontal scrollbars */
+  ::-webkit-scrollbar {
     display: none; /* Hide the scrollbar */
-}
+  }
 
-/* Optional: Style the scrollbar track and thumb */
-::-webkit-scrollbar-track {
+  /* Optional: Style the scrollbar track and thumb */
+  ::-webkit-scrollbar-track {
     background: transparent; /* You can set a background color here if desired */
-}
+  }
 
-::-webkit-scrollbar-thumb {
+  ::-webkit-scrollbar-thumb {
     background: transparent; /* You can set a background color here if desired */
-}
+  }
 
-body {
+  body {
     background: var(--bg);
-}
+  }
+
+
 
 

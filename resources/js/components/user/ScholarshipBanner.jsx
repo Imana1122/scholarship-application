@@ -23,7 +23,7 @@ export const ScholarshipBanner = ({errors}) => {
   };
 
   return (
-    <div className="bg-blue-400 px-20 py-5 flex flex-col items-center justify-between gap-y-10">
+    <div className="bg-blue-400 px-10 md:px-20 py-5 flex flex-col items-center justify-between gap-y-10">
       <div>
         <h1 className="text-white font-bold text-xl md:text-4xl ">Scholarship Program</h1>
       </div>

@@ -17,7 +17,7 @@ class StudentScholarshipController extends Controller
         $scholarship = Scholarship::first();
 
         // Pass the is_open value to the view
-        return Inertia::render('User/Scholarship', ['tab' => 'Apply', 'isScholarshipOpen' => $scholarship->is_open]);
+        return Inertia::render('User/Scholarship', ['tab' => 'Apply or Update', 'isScholarshipOpen' => $scholarship->is_open]);
     }
 
     public function showScholarshipApplicationUpdateForm()
@@ -64,7 +64,7 @@ class StudentScholarshipController extends Controller
             return Inertia::render('User/Scholarship',['tab'=>'Result','student'=>$student]);
         } else {
             // Criteria not met, return back with errors
-            return back()->withErrors(['id' => 'The provided student id has not applied for scholarship.'])->withInput();
+            return back()->withErrors(['id' => 'The provided student id is not found in scholarship applications.'])->withInput();
         }
     }
 
@@ -93,7 +93,7 @@ class StudentScholarshipController extends Controller
             $student->update($validatedData);
 
             // Step 4: Render the User/Scholarship view
-            return redirect("/scholarship-admit-card/$id");
+            return redirect("/scholarship/admit-card/$id");
         } else {
             // Handle the case where the student is not found
             return back()->withErrors(['id' => 'Student not found.'])->withInput();

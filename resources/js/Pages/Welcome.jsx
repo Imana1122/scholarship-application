@@ -38,7 +38,6 @@ export default function Welcome(props) {
           modifier: 2.5,
         }}
         scrollbar={{ draggable: true }}
-        keyboard={{ keyboard:true }}
         modules={[EffectCoverflow,Mousewheel,Keyboard,Virtual]}
         className="swiper_container"
       >

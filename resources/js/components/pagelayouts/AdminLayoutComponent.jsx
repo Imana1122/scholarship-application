@@ -105,7 +105,7 @@ export const AdminLayoutComponent = ({ title,currentUser, buttons = "", children
 
 
     return (
-        <div className='flex flex-row bg-neutral-100 h-screen w-screen'>
+        <div className='flex flex-row bg-neutral-100 max-h-screen max-w-screen overflow-auto'>
           {/* Sidebar component */}
           <motion.div
             className={`${
@@ -123,12 +123,12 @@ export const AdminLayoutComponent = ({ title,currentUser, buttons = "", children
             <Sidebar logout={logout} DASHBOARD_SIDEBAR_LINKS={DASHBOARD_SIDEBAR_LINKS} />
           </div>
 
-          <div className='flex-col h-screen flex flex-1'>
+          <div className='flex-col flex flex-1 overflow-auto'>
             {/* Header component */}
             <Header logout={logout} currentUser={currentUser} onSidebarToggle={handleSidebarToggle} />
 
               {/* Children container with fixed width and height */}
-              <div className="min-h-0 mt-5 w-screen h-full md:w-[65rem] flex flex-col space-y-3 pt-6 px-2">
+            <div className="min-h-0 mt-5 w-full h-full flex flex-col space-y-3 pt-6 px-2 flex-1">
                 <header className="bg-white shadow header">
                   <div className="flex mx-auto justify-between items-center w-full ">
                     {/* Title */}

@@ -8,7 +8,7 @@ import Modal from "../../components/Modal";
 import { CiWarning } from "react-icons/ci";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { Link } from "@inertiajs/react";
+import { Link, router } from "@inertiajs/react";
 
 export default function Users(props){
   const { searchQuery } = useStateContext();
@@ -33,6 +33,8 @@ export default function Users(props){
       .then((response) => {
         if (response.status === 200) {
           toast.success('User deleted successfully');
+          setIsModalOpen(false)
+          router.visit('/user/users')
         }
       })
       .catch((error) => {
@@ -44,6 +46,8 @@ export default function Users(props){
           // Show a generic error message
           toast.error('An error occurred while deleting the user.');
         }
+        setIsModalOpen(false)
+        router.visit('/user/users')
       });
   };
 

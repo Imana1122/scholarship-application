@@ -156,7 +156,7 @@ export default function StudentsForSchool({students}){
 
             {/** Modal for photo */}
             <Modal show={isImageModalOpen} onClose={() => setIsImageModalOpen(false)}>
-                <img src={imageUrl} alt="Image" className='w-full h-[600px] rounded-md '/>
+                <img src={imageUrl} alt="Image" className='w-full rounded-md '/>
             </Modal>
 
           </div>

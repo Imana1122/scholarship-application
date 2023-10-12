@@ -128,8 +128,9 @@ export default function NewDownloadFile(props) {
           aria-describedby="modal-modal-description"
           onClose={() => setIsFileModalOpen(false)}
         >
-        <div className='flex flex-col items-center w-full'>
+        <div className='flex flex-col items-center w-full h-full'>
           <Button color='error' variant='contained' onClick={() => setIsFileModalOpen(false)}>Close</Button>
+          <div className='w-full h-full overflow-auto'>
           <Worker workerUrl="https://unpkg.com/pdfjs-dist@3.11.174/build/pdf.worker.min.js">
                 {pdfUrl && <>
                     <div
@@ -144,7 +145,7 @@ export default function NewDownloadFile(props) {
                 </>}
                 {!pdfUrl && <>No PDF</>}
           </Worker>
-
+          </div>
         </div>
         </Modal>
       </Paper>

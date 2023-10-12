@@ -13,7 +13,7 @@ export default function SendToken() {
   const submit = (e) => {
     e.preventDefault();
 
-    post("/user/send-token", data)
+    post("/password-reset/user/send-token", data)
   };
 
   return (
