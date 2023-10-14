@@ -19,7 +19,7 @@ class CacheController extends Controller
        if ($exitCode === 0) {
            return "Route, config, and application cache cleared, and configuration cached.. Output: $output";
        } else {
-           return "Migrations and seeders failed. Output: $output";
+           return "Commands failed. Output: $output";
        }
     }
 }

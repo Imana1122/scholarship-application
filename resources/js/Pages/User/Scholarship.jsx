@@ -66,7 +66,7 @@ export default function Scholarship(props) {
             {props.student ? ( props.student.rank || props.student.result ?
             (
               <div>
-                <Typography variant='h6'>Result Published::</Typography>
+                <Typography variant='h6' color={'green'}>Result::</Typography>
                 <Typography variant='subtitle1'>
                   Result:{' '}
                   <span
@@ -81,6 +81,9 @@ export default function Scholarship(props) {
                 </Typography>
                 <Typography variant='subtitle1'>
                   Rank: <span>{props.student.rank}</span>
+                </Typography>
+                <Typography variant='subtitle1'>
+                  Marks: <span>{props.student.marks}</span>
                 </Typography>
               </div>
             ) : (

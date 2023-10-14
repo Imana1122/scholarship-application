@@ -41,9 +41,6 @@ class ClearAndCache extends Command
         // Cache the route
         $this->call('route:cache');
 
-        // Cache the route
-        $this->call('storage:link');
-
         $this->info('Route, config, and application cache cleared, and configuration cached.');
     }
 

@@ -90,7 +90,9 @@ export default function About(props){
                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed
                     tincidunt urna eu dapibus.
                     </>}
-                    {aboutDetails.mission_image_path && <img src={`/storage/images/${aboutDetails.mission_image_path}`} alt="mission"/>}
+                    <div className='flex justify-center my-5'>
+                    {aboutDetails.mission_image_path && <img src={`/storage/images/${aboutDetails.mission_image_path}`} alt="mission" className="h-[300px]"/>}
+                    </div>
                     </Typography>
                 </Paper>
         </Grid>

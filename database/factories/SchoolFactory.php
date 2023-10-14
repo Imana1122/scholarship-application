@@ -21,11 +21,11 @@ class SchoolFactory extends Factory
     {
         return [
             'school_name' => $this->faker->company,
-            'school_type' => $this->faker->randomElement(['Public', 'Private', 'Community']),
+            'school_type' => $this->faker->randomElement(['Secondary School']),
             'school_email' => $this->faker->unique()->safeEmail,
             'school_phone' => $this->faker->unique()->randomNumber(5),
             'school_address' => $this->faker->address,
-            'school_category' => $this->faker->randomElement(['Primary', 'Secondary', 'High School']),
+            'school_category' => $this->faker->randomElement(['Public', 'Private', 'Community']),
             'established_date' => $this->faker->date,
             'principal_name' => $this->faker->name,
             'principal_email' => $this->faker->unique()->safeEmail,
